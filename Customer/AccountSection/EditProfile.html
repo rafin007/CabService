@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>CHANGE PROFILE PICTURE</title>
+    <title>EDIT PROFILE</title>
 </head>
 
 <body>
@@ -16,8 +16,8 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html">Bob</a>
-                    <a href="Home.html">Logout</a>
+                    Logged in as <a href="#">Bob</a>
+                    <a href="#">Logout</a>
 
                 </div>
 
@@ -37,7 +37,7 @@
                     <li><a href="EditProfile.html">Edit Profile</a></li>
                     <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
                     <li><a href="ChangePassword.html">Change Password</a></li>
-                    <li><a href="../Home.html">Logout</a></li>
+                    <li><a href="../../Home.html">Logout</a></li>
 
                 </ul>
 
@@ -48,6 +48,8 @@
                     <li><a href="#">Book a Ride</a></li>
                     <li><a href="#">Ride History</a></li>
                     <li><a href="#">Destination Coverage</a></li>
+                    <li><a href="#">Cancel Booked Ride</a></li>
+                    <li><a href="#">View Invoices</a></li>
                     <li><a href="#">Report an Issue</a></li>
 
 
@@ -61,12 +63,23 @@
 
                     <fieldset>
 
-                        <legend>PROFILE PICTURE</legend>
+                        <legend>EDIT PROFILE</legend>
 
-                        <img src="person.jpg" width="250px">
-                        <p><input type="file" name="file"></p>
+                        <p>Name: <input type="text" name="name"></p>
                         <hr>
-                        <input type="submit" name="Submit">
+                        <p>Email: <input type="email" name="email"></p>
+                        <hr>
+                        <p>Gender:
+
+                            <input type="radio" name="gender" value="Male">Male
+                            <input type="radio" name="gender" value="Female">Female
+                            <input type="radio" name="gender" value="Other">Other
+
+                        </p>
+                        <hr>
+                        <p>Date of Birth: <input type="text" name="dob"> (dd/mm/yyyy)</p>
+                        <hr>
+                        <input type="submit" value="Submit">
 
                     </fieldset>
 

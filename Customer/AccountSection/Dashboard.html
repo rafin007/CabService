@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW PROFILE</title>
+    <title>DASHBOARD</title>
 </head>
 
 <body>
 
-    <table width="100%" border="1px" height="600px" cellpadding="20px" cellspacing="0px" align="center">
+    <table width="100%" border="1px" height="630px" cellpadding="20px" cellspacing="0px" align="center">
 
         <tr>
             <td valign="middle" height="50px" colspan="3">
@@ -17,7 +17,7 @@
                 <div align="right">
 
                     Logged in as <a href="Profile.html">Bob</a>
-                    <a href="Home.html">Logout</a>
+                    <a href="#">Logout</a>
 
                 </div>
 
@@ -37,7 +37,7 @@
                     <li><a href="EditProfile.html">Edit Profile</a></li>
                     <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
                     <li><a href="ChangePassword.html">Change Password</a></li>
-                    <li><a href="../Home.html">Logout</a></li>
+                    <li><a href="../../Home.html">Logout</a></li>
 
                 </ul>
 
@@ -45,9 +45,11 @@
                 <hr>
                 <ul>
 
-                    <li><a href="#">Book a Ride</a></li>
+                    <li><a href="../CustomerSection/BookRide.html">Book a Ride</a></li>
                     <li><a href="#">Ride History</a></li>
                     <li><a href="#">Destination Coverage</a></li>
+                    <li><a href="#">Cancel Booked Ride</a></li>
+                    <li><a href="#">View Invoices</a></li>
                     <li><a href="#">Report an Issue</a></li>
 
 
@@ -57,48 +59,31 @@
 
             <td colspan="2" width="70%" valign="top" align="center">
 
-                <form class="" action="">
+                <h1>Greetings User</h1>
 
-                    <fieldset>
+                <h3>You haven't booked any rides yet, <a href="../CustomerSection/BookRide.html">Book one now!</a></h3>
 
-                        <legend>PROFILE</legend>
+                <table width="100%">
+                    <tr>
+                        <td valign="top" colspan="2">
 
-                        <table cellspacing="50px">
+                            <h2>Here's a snippet of today's weather..</h2>
 
-                            <tr>
+                        </td>
+                        <td>
 
-                                <td colspan="3">
+                            <h2>Also checkout..</h2>
+                            <ul>
 
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
-                                    <hr>
+                                <li><h3><a href="#">Your Ride History</a></h3></li>
+                                <li><h3><a href="#">Flight Times</a></h3></li>
 
-                                </td>
+                            </ul>
+                            <h3>Have a complain? <a href="Issue.html">Report here</a></h3>
 
-                                <td>
-
-                                    <img src="person.jpg" width="200px">
-                                    <br>
-                                    <a href="#">Change</a>
-
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td align="left" colspan="3"><a href="#">Edit Profile</a></td>
-
-                            </tr>
-
-                        </table>
-
-
-                    </fieldset>
-
-                </form>
+                        </td>
+                    </tr>
+                </table>
 
             </td>
 

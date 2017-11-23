@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EDIT PROFILE</title>
+    <title>VIEW PROFILE</title>
 </head>
 
 <body>
@@ -16,8 +16,8 @@
 
                 <div align="right">
 
-                    Logged in as <a href="#">Bob</a>
-                    <a href="#">Logout</a>
+                    Logged in as <a href="Profile.html">Bob</a>
+                    <a href="Home.html">Logout</a>
 
                 </div>
 
@@ -37,7 +37,7 @@
                     <li><a href="EditProfile.html">Edit Profile</a></li>
                     <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
                     <li><a href="ChangePassword.html">Change Password</a></li>
-                    <li><a href="../Home.html">Logout</a></li>
+                    <li><a href="../../Home.html">Logout</a></li>
 
                 </ul>
 
@@ -48,6 +48,8 @@
                     <li><a href="#">Book a Ride</a></li>
                     <li><a href="#">Ride History</a></li>
                     <li><a href="#">Destination Coverage</a></li>
+                    <li><a href="#">Cancel Booked Ride</a></li>
+                    <li><a href="#">View Invoices</a></li>
                     <li><a href="#">Report an Issue</a></li>
 
 
@@ -55,29 +57,46 @@
 
             </td>
 
-            <td colspan="2" width="70%" valign="middle" align="center">
+            <td colspan="2" width="70%" valign="top" align="center">
 
                 <form class="" action="">
 
                     <fieldset>
 
-                        <legend>EDIT PROFILE</legend>
+                        <legend>PROFILE</legend>
 
-                        <p>Name: <input type="text" name="name"></p>
-                        <hr>
-                        <p>Email: <input type="email" name="email"></p>
-                        <hr>
-                        <p>Gender:
+                        <table cellspacing="50px">
 
-                            <input type="radio" name="gender" value="Male">Male
-                            <input type="radio" name="gender" value="Female">Female
-                            <input type="radio" name="gender" value="Other">Other
+                            <tr>
 
-                        </p>
-                        <hr>
-                        <p>Date of Birth: <input type="text" name="dob"> (dd/mm/yyyy)</p>
-                        <hr>
-                        <input type="submit" value="Submit">
+                                <td colspan="3">
+
+                                    Name: Bob
+                                    <hr> Email: bob@aiub.edu
+                                    <hr> Gender: Male
+                                    <hr> Date of Birth: 19/09/1998
+                                    <hr>
+
+                                </td>
+
+                                <td>
+
+                                    <img src="person.jpg" width="200px">
+                                    <br>
+                                    <a href="#">Change</a>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td align="left" colspan="3"><a href="#">Edit Profile</a></td>
+
+                            </tr>
+
+                        </table>
+
 
                     </fieldset>
 
