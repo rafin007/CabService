@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW PROFILE</title>
+    <title>VIEW CUSTOMERS</title>
 </head>
 
 <body>
@@ -32,11 +32,11 @@
                 <hr>
                 <ul>
 
-                    <li><a href="Dashboard.html">Dashboard</a></li>
-                    <li><a href="Profile.html">View Profile</a></li>
-                    <li><a href="EditProfile.html">Edit Profile</a></li>
-                    <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
-                    <li><a href="ChangePassword.html">Change Password</a></li>
+                    <li><a href="../AcountSection/Dashboard.html">Dashboard</a></li>
+                    <li><a href="../AcountSection/Profile.html">View Profile</a></li>
+                    <li><a href="../AcountSection/EditProfile.html">Edit Profile</a></li>
+                    <li><a href="../AcountSection/ProfilePicture.html">Change Profile Picture</a></li>
+                    <li><a href="../AcountSection/ChangePassword.html">Change Password</a></li>
                     <li><a href="../../Home.html">Logout</a></li>
 
                 </ul>
@@ -48,7 +48,7 @@
                     <li><a href="../AdminSection/Revenue.html">View Revenue</a></li>
                     <li><a href="../AdminSection/CreateEmployee.html">Create Employee</a></li>
                     <li><a href="../AdminSection/ViewCustomers.html">View Customers</a></li>
-                    <li><a href="../AdminSection/ViewEmployees.html">View Employees</a></li>
+                    <li><a href="../AdminSection/ViewEmployees.html">View Employee</a></li>
                     <li><a href="../AdminSection/ViewFairs.html">View all Fairs</a></li>
                     <li><a href="../AdminSection/Insights.html">Insights</a></li>
                     <li><a href="../AdminSection/ComplainBook.html">Complain Book</a></li>
@@ -57,50 +57,35 @@
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="center">
+            <td colspan="2" width="70%" valign="top" align="left">
+                <fieldset>
+                    <legend>
+                        <b>CUSTOMER | SEARCH</b>
+                    </legend>
+                    Filter By
+                    <select>
+                        <option>Any</option>
+                        <option>Name</option>
+                        <option>Email</option>
+                        <option>Join Date</option>
+                    </select>
+                    <input />
+                    <input type="submit" value="Search" />
 
-                <form class="" action="">
+                </fieldset>
+                <br>
+                <table width="100%" cellspacing="0" border="1" cellpadding="5">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Join Date</th>
+                    <th>Total Rides</th>
+                    <th>Action</th>
+                </tr>
 
-                    <fieldset>
-
-                        <legend>PROFILE</legend>
-
-                        <table cellspacing="50px">
-
-                            <tr>
-
-                                <td colspan="3">
-
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
-                                    <hr>
-
-                                </td>
-
-                                <td>
-
-                                    <img src="person.jpg" width="200px">
-                                    <br>
-                                    <a href="#">Change</a>
-
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td align="left" colspan="3"><a href="#">Edit Profile</a></td>
-
-                            </tr>
-
-                        </table>
-
-
-                    </fieldset>
-
-                </form>
+            </table>
 
             </td>
 
@@ -119,7 +104,3 @@
         </tr>
 
     </table>
-
-</body>
-
-</html>
