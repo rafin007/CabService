@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW PROFILE</title>
+    <title>EDIT EMPLOYEE PROFILE</title>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html">Bob</a> |
+                    Logged in as <a href="#">Bob</a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -53,51 +53,62 @@
                     <li><a href="../AdminSection/Insights.html">Insights</a></li>
                     <li><a href="../AdminSection/ComplainBook.html">Complain Book</a></li>
 
-
                 </ul>
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="center">
+            <td colspan="2" width="70%" valign="middle">
 
                 <form class="" action="">
 
                     <fieldset>
 
-                        <legend>PROFILE</legend>
-
-                        <table cellspacing="50px">
-
+                        <legend>EDIT EMPLOYEE PROFILE</legend>
+                        <table width="100%" height="100%" cellspacing="30px">
                             <tr>
-
-                                <td colspan="3">
-
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
-                                    <hr>
-
-                                </td>
-
                                 <td>
 
-                                    <img src="person.jpg" width="200px">
-                                    <br>
-                                    <a href="#">Change</a>
+                                    <p>Name: <input type="text" name="name"></p>
+                                    <hr>
+                                    <p>Email: <input type="email" name="email"></p>
+                                    <hr>
+                                    <p>Password: <input type="text" name="" value=""></p>
+                                    <hr>
+                                    <p>Phone: <input type="tel" name="" value=""></p>
+                                    <hr>
+                                    <p>Gender:
+
+                                        <input type="radio" name="gender" value="Male">Male
+                                        <input type="radio" name="gender" value="Female">Female
+                                        <input type="radio" name="gender" value="Other">Other
+
+                                    </p>
+                                    <p>
+
+                                        Employee type:
+                                        <select class="" name="">
+                                                <option value="Admin">Admin</option>
+                                                <option value="Driver">Driver</option>
+                                        </select>
+
+                                    </p>
+                                    <hr>
+                                    <p>Date of Birth: <input type="text" name="dob"> (dd/mm/yyyy)</p>
 
                                 </td>
+                                <td>
 
+                                    <img src="../AccountSection/person.jpg" width="200px">
+                                    <br>
+                                    Change <input type="file" name="" value="">
+
+                                </td>
                             </tr>
-
-                            <tr>
-
-                                <td align="left" colspan="3"><a href="#">Edit Profile</a></td>
-
-                            </tr>
-
                         </table>
 
+
+                        <hr>
+                        <input type="submit" value="Submit">
 
                     </fieldset>
 
