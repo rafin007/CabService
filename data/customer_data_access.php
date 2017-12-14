@@ -3,23 +3,23 @@
 <?php
 
 	function createCustomerDB($customer){
-		
+
 	}
-	
+
 	function deleteCustomerDB($id){
-		
+
 	}
-	
+
 	function updateCustomerDB($id){
-		
+
 	}
-	
+
 	function getAllCustomerDB(){
-		
+
 	}
-	
-	function getCustomerById(){
-		
+
+	function getCustomerById($id){
+
 	}
-	
+
 ?>

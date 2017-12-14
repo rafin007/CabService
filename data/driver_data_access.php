@@ -3,23 +3,23 @@
 <?php
 
 	function createDriverDB($driver){
-		
+
 	}
-	
+
 	function deleteDriverDB($id){
-		
+
 	}
-	
+
 	function updateDriverDB($id){
-		
+
 	}
-	
+
 	function getAllDriverDB(){
-		
+
 	}
-	
-	function getDriverById(){
-		
+
+	function getDriverById($id){
+
 	}
-	
+
 ?>
