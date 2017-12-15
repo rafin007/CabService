@@ -1,3 +1,23 @@
+<?php require_once "../core/employee_service.php"; ?>
+<?php require_once "../core/customer_service.php"; ?>
+<?php require_once "../core/validation_service.php"; ?>
+
+<?php
+
+    session_start();
+    $errorMessage="";
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        $username = "cus-".$_POST['username'];
+        $password = $_POST['password'];
+
+        if(checkLogin($username, $password)){
+            echo "<h1>Customer logged in!</h1>";
+        }
+        else{
+            echo "<h1>shit, not again!</h1>";
+        }
+    }
+?>
 
 <html>
 
@@ -28,12 +48,12 @@
 
             <td colspan="3">
 
-                <form class="" action="LoginTo.html" align="center">
+                <form align="center" method="post">
                     <fieldset>
 
 
                         <legend>Login</legend>
-                        <p>User Name: <input type="text" name="name" value=""placeholder="Your User Name Here"></p>
+                        <p>User Name: <input type="text" name="username" value=""placeholder="Your User Name Here"></p>
                         <p>Password: <input type="password" name="password" value="" placeholder="Your Password Here"></p>
                         <p><input type="checkbox" name="remember" value="" >Remember me</p>
                         <p><input type="submit" name="submit" value="Login"></p>
