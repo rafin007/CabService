@@ -1,16 +1,10 @@
 <?php
-    $host="127.0.0.1";
-    $user="root";
-    $pass="";
-    $dbname="cab_service";
-    $port=3306;
 
     function executeSQL($sql){
-        global $host, $user, $pass, $dbname, $port;
 
-        $link=mysqli_connect($host, $user, $pass, $dbname, $port);
-        $result = mysqli_query($link, $sql);
-        mysqli_close($link);
+        $conn = mysqli_connect("localhost", "root", "", "cab_service", 3306);
+        $result = mysqli_query($conn, $sql);
+        mysqli_close($conn);
 
         return $result;
     }
