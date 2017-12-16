@@ -2,8 +2,11 @@
 
 <?php
 
-	function createEmployeeDB($employee){
-
+	function createEmployeeDB($name, $username, $password, $email, $phone, $salary, $type, $gender){
+		$date = date('Y-m-d');
+		$sql = "INSERT INTO employee (id, name, username, password, email, phone, salary, type, gender, join_date, rating) VALUES (null, '$name', '$username', '$password', '$email', '$phone', '$salary', '$type', '$gender', '$date', 0)";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function deleteEmployeeDB($id){
@@ -15,7 +18,10 @@
 	}
 
 	function getAllEmployeeDB(){
-
+		$sql = "SELECT id, name, email, phone FROM employee";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		return $result;
 	}
 
 	function getEmployeeByIdDB($id){
