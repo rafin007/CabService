@@ -26,18 +26,21 @@
 	}
 
 	function getCustomerByUsernameDB($username){
-		$sql = "SELECT * FROM customer WHERE username = $username";
+		$sql = "SELECT * FROM customer WHERE username = '$username'";
 		$result = executeSQL($sql);
-		var_dump($result);
 		$person = mysqli_fetch_assoc($result);
 		return $person;
 	}
 
-	function customerLoginDB($username, $password){
-		$sql = "SELECT * FROM customer WHERE username = $username AND password = $password";
+	function checkCustomerLoginDB($username, $password){
+		$sql = "SELECT * FROM customer WHERE username = '$username' AND password = '$password'";
+		$status = false;
 		$result = executeSQL($sql);
-		$person = mysqli_fetch_assoc($result);
-		return $person;
+		//$row = mysqli_fetch_object($result);
+		if($result->num_rows){
+			$status = true;
+		}
+		return $status;
 	}
 
 ?>

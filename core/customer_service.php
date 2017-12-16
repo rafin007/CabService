@@ -1,4 +1,4 @@
-<?php require_once "../data/customer_data_access.php" ?>
+<?php require_once (realpath(dirname(__FILE__) ."/../data/customer_data_access.php")); ?>
 <?php
 
     function createCustomer($customer){
@@ -25,8 +25,8 @@
 		return getCustomerByUsernameDB($username);
 	}
 
-    function customerLogin($username, $password){
-        return customerLoginDB($username, $password);
+    function checkCustomerLogin($username, $password){
+        return checkCustomerLoginDB($username, $password);
     }
 
 ?>
