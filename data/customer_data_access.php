@@ -15,7 +15,10 @@
 	}
 
 	function getAllCustomerDB(){
-
+		$sql = "SELECT id, name, email, phone FROM customer";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		return $result;
 	}
 
 	function getCustomerByIdDB($id){

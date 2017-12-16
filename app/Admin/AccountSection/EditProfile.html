@@ -20,7 +20,7 @@
 
 <body>
 
-    <table width="100%" border="1px" height="600px" cellpadding="20px" cellspacing="0px" align="center">
+    <table width="100%" border="1px" height="630px" cellpadding="20px" cellspacing="0px" align="center">
 
         <tr>
             <td valign="middle" height="50px" colspan="3">
@@ -83,12 +83,17 @@
                         <hr>
                         <p>Username: <input type="text" name="username" value="<?=$employee['username'];?>"></p>
                         <hr>
-                        <p>Employee Type: <input type="text" name="type" value="<?=$employee['type'];?>"></p>
+                        <p>Employee Type:
+                            <select name="">
+                                <option value="Admin" id="admin">Admin</option>
+                                <option value="Driver" id="driver">Driver</option>
+                            </select>
+                        </p>
                         <hr>
                         <p>Gender:
 
                             <input type="radio" name="gender" id="male" value="Male">Male
-                            <input type="radio" name="gender" id="Female" value="Female">Female
+                            <input type="radio" name="gender" id="female" value="Female">Female
                             <input type="radio" name="gender" id="other" value="Other">Other
 
                         </p>
@@ -122,15 +127,23 @@
     <script type="text/javascript">
 
         var gender = "<?=$employee['gender'];?>";
-        //alert(gender);
-        if(gender == "Male"){
+
+        if(gender === "Male"){
             document.getElementById("male").checked = true;
         }
-        else if(gender == "Female"){
+        else if(gender === "Female"){
             document.getElementById("female").checked = true;
         }
         else {
             document.getElementById("other").checked = true;
+        }
+
+        var type = "<?=$employee['type'];?>";
+        if(type === "Admin"){
+            document.getElementById("admin").selected = true;
+        }
+        else if (type === "Driver") {
+            document.getElementById("driver").selected = true;
         }
 
 

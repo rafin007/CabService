@@ -87,7 +87,7 @@
                         <p>Gender:
 
                             <input type="radio" name="gender" id="male" value="Male">Male
-                            <input type="radio" name="gender" id="Female" value="Female">Female
+                            <input type="radio" name="gender" id="female" value="Female">Female
                             <input type="radio" name="gender" id="other" value="Other">Other
 
                         </p>
@@ -117,6 +117,22 @@
         </tr>
 
     </table>
+
+    <script type="text/javascript">
+
+        var gender = "<?=$employee['gender'];?>";
+
+        if(gender === "Male"){
+            document.getElementById("male").checked = true;
+        }
+        else if(gender === "Female"){
+            document.getElementById("female").checked = true;
+        }
+        else {
+            document.getElementById("other").checked = true;
+        }
+
+    </script>
 
 </body>
 

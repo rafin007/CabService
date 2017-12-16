@@ -10,6 +10,8 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    $persons = getAllEmployee();
+
 ?>
 
 <html>
@@ -92,50 +94,24 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Gender</th>
-                    <th>Join Date</th>
-                    <th>Total Rides</th>
                     <th>Action</th>
                 </tr>
-				<tr>
-				     <td>Kamal</td>
-					 <td>kamal1@gmail.com</td>
-					 <td>01615053573</td>
-					 <td>male</td>
-					 <td>1/1/2015</td>
-					 <td>5</td>
-					 <td>
-                         <a href="EmployeeProfile.html">View</a> |
-                         <a href="EmployeeProfileEdit.html">Edit</a> |
-                         <a href="EmployeeProfileDelete.html">Delete</a>
-					  </td>
-				</tr>
-				<tr>
-				     <td>Karim</td>
-					 <td>karim12@gmail.com</td>
-					 <td>01915053583</td>
-					 <td>male</td>
-					 <td>1/7/2015</td>
-					 <td>2</td>
-					 <td>
-                         <a href="EmployeeProfile.html">View</a> |
-                         <a href="EmployeeProfileEdit.html">Edit</a> |
-                         <a href="EmployeeProfileDelete.html">Delete</a>
-					  </td>
-				</tr>
-				<tr>
-				     <td>Samrad</td>
-					 <td>samrad05@gmail.com</td>
-					 <td>01913053573</td>
-					 <td>male</td>
-					 <td>1/10/2016</td>
-					 <td>7</td>
-					 <td>
-                         <a href="EmployeeProfile.html">View</a> |
-                         <a href="EmployeeProfileEdit.html">Edit</a> |
-                         <a href="EmployeeProfileDelete.html">Delete</a>
-					  </td>
-				</tr>
+                <?php
+                    foreach($persons as $person){
+    				    echo "<tr>";
+        				     echo "<td>".$person['name']."</td>";
+        					 echo "<td>".$person['email']."</td>";
+        					 echo "<td>".$person['phone']."</td>";
+        					 echo "<td>";
+                ?>
+                                 <a href="EmployeeProfile.html">View</a> |
+                                 <a href="EmployeeProfileEdit.html">Edit</a> |
+                                 <a href="EmployeeProfileDelete.html">Delete</a>
+                        <?php
+                             echo "</td>";
+                          }
+    				echo "</tr>";
+                ?>
 
             </table>
 
