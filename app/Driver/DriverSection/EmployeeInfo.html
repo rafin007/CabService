@@ -1,9 +1,21 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
 
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $employee = getEmployeeById($_SESSION['id']);
+    }
+
+?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>AVAILABLE FareS</title>
+    <title>Employee Information</title>
 </head>
 
 <body>
@@ -16,7 +28,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html">Bob</a> |
+                    Logged in as <a href="../AccountSection/Profile.html"><?=$employee['name'];?></a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -56,47 +68,22 @@
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="center">
+            <td colspan="2" width="70%" valign="top" align="left">
 
-                <h2>Employee information..</h2>
+                <fieldset>
 
-                <table width="100%" border="1px" cellspacing="0" cellpadding="5px">
-                    <tr>
-                        <th>Driver</th>
-                        <th>Date Joined</th>
-                        <th>Fares Completed</th>
-                        <th>Coverage Area</th>
-                        <th>Current Salary</th>
-                        <th>Avg Rating</th>
+                    <legend>EMPLOYEE | INFORMATION</legend>
 
-                    </tr>
-					<tr>
-					     <td>Kamal</td>
-						 <td>16/10/2017</td>
-						 <td>5</td>
-						 <td>Banani,Uttora</td>
-						 <td>30000</td>
-						 <td>4</td>
-					</tr>
-					<tr>
-					     <td>Karim</td>
-						 <td>20/10/2017</td>
-						 <td>9</td>
-						 <td>Mirpur,Uttora</td>
-						 <td>40000</td>
-						 <td>3</td>
-					</tr>
-					<tr>
-					     <td>Rocky</td>
-						 <td>26/10/2017</td>
-						 <td>5</td>
-						 <td>Gulshan,Dhanmondi</td>
-						 <td>50000</td>
-						 <td>4</td>
-					</tr>
+                    <h3>Member since: 10/10/10</h3>
+                    <hr>
+                    <h3>Salary: 20,000 BDT</h3>
+                    <hr>
+                    <h3>Total Fares(Today): 5</h3>
+                    <h3>Total Fares(Last 7 days): 20</h3>
+                    <h3>Total Fares(Last 30 days): 70</h3>
+                    <hr>
 
-
-                </table>
+                </fieldset>
 
             </td>
 
