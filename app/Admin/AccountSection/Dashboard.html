@@ -1,3 +1,16 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $employee = getEmployeeById($_SESSION['id']);        
+    }
+
+?>
 
 <html>
 
@@ -16,7 +29,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html">Bob</a> |
+                    Logged in as <a href="Profile.html"><?=$employee['name'];?></a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -59,7 +72,7 @@
 
             <td colspan="2" width="70%" valign="top" align="center">
 
-                <h1>Welcome Admin</h1>
+                <h1>Welcome <?=$employee['name'];?></h1>
 
                 <table width="100%">
                     <tr valign="top">

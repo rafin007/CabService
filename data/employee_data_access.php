@@ -1,4 +1,4 @@
-<?php require_once "data_access.php"; ?>
+<?php require_once (realpath(dirname(__FILE__) ."/data_access.php")); ?>
 
 <?php
 
@@ -19,24 +19,28 @@
 	}
 
 	function getEmployeeByIdDB($id){
-		$sql = "SELECT * FROM employee WHERE id = $id";
+		$sql = "SELECT * FROM employee WHERE id = '$id'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		return $person;
 	}
 
 	function getEmployeeByUsernameDB($username){
-		$sql = "SELECT * FROM employee WHERE username = $username";
+		$sql = "SELECT * FROM employee WHERE username = '$username'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		return $person;
 	}
 
-	function employeeLoginDB($username, $password){
-		$sql = "SELECT * FROM employee WHERE username = $username AND password = $password";
+	function checkEmployeeLoginDB($username, $password){
+		$status = false;
+		$sql = "SELECT * FROM employee WHERE username = '$username' AND password = '$password'";
 		$result = executeSQL($sql);
-		$person = mysqli_fetch_assoc($result);
-		return $person;
+		//$row = mysqli_fetch_array($result);
+		if($result->num_rows){
+			$status = true;
+		}
+		return $status;
 	}
 
 ?>

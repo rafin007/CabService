@@ -4,16 +4,12 @@
 
 <?php
 
-    function checkLogin($username, $password){
-        return checkLoginDB($username, $password);
+    function checkPerson($username){
+        $nameArray = explode("-", $username);
+        if(count($nameArray)===2){
+            $result = $nameArray[0];
+            return $result;
+        }
     }
-
-    // function checkPerson($username){
-    //     $nameArray = explode("-", $username);
-    //     if(count($nameArray)===2){
-    //         $result = $nameArray[0];
-    //         return $result;
-    //     }
-    // }
 
 ?>
