@@ -2,8 +2,8 @@
 
 <?php
 
-    function createEmployee($employee){
-        return createEmployeeDB($employee);
+    function createEmployee($name, $username, $password, $email, $phone, $salary, $type, $gender){
+        return createEmployeeDB($name, $username, $password, $email, $phone, $salary, $type, $gender);
     }
 
     function deleteEmployee($id){
