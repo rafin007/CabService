@@ -1,4 +1,16 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
 
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $employee = getEmployeeById($_SESSION['id']);
+    }
+
+?>
 <html>
 
 <head>
@@ -16,7 +28,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html">Bob</a> |
+                    Logged in as <a href="../AccountSection/Profile.html"><?=$employee['name'];?></a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -70,10 +82,11 @@
 
                                 <td colspan="3">
 
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
+                                    Name: <?=$employee['name'];?>
+                                    <hr> Username: <?=$employee['username'];?>
+                                    <hr> Email: <?=$employee['email'];?>
+                                    <hr> Gender: <?=$employee['gender'];?>
+                                    <hr> Phone: <?=$employee['phone'];?>
                                     <hr>
 
                                 </td>
@@ -82,7 +95,7 @@
 
                                     <img src="person.jpg" width="200px">
                                     <br>
-                                    <a href="#">Change</a>
+                                    <a href="ProfilePicture.html">Change</a>
 
                                 </td>
 
@@ -90,7 +103,7 @@
 
                             <tr>
 
-                                <td align="left" colspan="3"><a href="#">Edit Profile</a></td>
+                                <td align="left" colspan="3"><a href="EditProfile.html">Edit Profile</a></td>
 
                             </tr>
 

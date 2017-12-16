@@ -1,4 +1,4 @@
-<?php require_once "../data/employee_data_access.php" ?>
+<?php require_once(realpath(dirname(__FILE__) . '/../data/employee_data_access.php')); ?>
 
 <?php
 
@@ -26,8 +26,7 @@
 		return getEmployeeByUsernameDB($username);
 	}
 
-    function employeeLogin($username, $password){
-        return employeeLoginDB($username, $password);
+    function checkEmployeeLogin($username, $password){
+        return checkEmployeeLoginDB($username, $password);
     }
-
 ?>

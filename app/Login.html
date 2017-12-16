@@ -1,20 +1,40 @@
-<?php require_once "../core/employee_service.php"; ?>
-<?php require_once "../core/customer_service.php"; ?>
-<?php require_once "../core/validation_service.php"; ?>
+<?php require_once (realpath(dirname(__FILE__) ."/../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__) ."/../core/customer_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__) ."/../core/validation_service.php")); ?>
 
 <?php
 
     session_start();
     $errorMessage="";
     if($_SERVER['REQUEST_METHOD']=="POST"){
-        $username = "cus-".$_POST['username'];
+        $username = $_POST['username'];
         $password = $_POST['password'];
 
-        if(checkLogin($username, $password)){
-            echo "<h1>Customer logged in!</h1>";
+        if(checkPerson($username)==="cus"){
+            if(checkCustomerLogin($username, $password)){
+                $customer = getCustomerByUsername($username);
+                $_SESSION['id'] = $customer['id'];
+                header("location: Customer/AccountSection/Dashboard.html");
+            }
+            else{
+                $errorMessage += "Invalid username or password!";
+            }
+        }
+        else if(checkPerson($username)==="emp"){
+            if(checkEmployeeLogin($username, $password)){
+                $employee = getEmployeeByUsername($username);
+                $_SESSION['id'] = $employee['id'];
+                if($employee['type']==="Admin"){
+                    header("location: Admin/AccountSection/Dashboard.html");
+                }
+                else if($employee['type']==="Driver"){
+                    header("location: Driver/AccountSection/Dashboard.html");
+                }
+            }
+            $errorMessage += "Invalid username or password!";
         }
         else{
-            echo "<h1>shit, not again!</h1>";
+            $errorMessage += "Invalid username or password!";
         }
     }
 ?>
