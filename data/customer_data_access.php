@@ -1,4 +1,4 @@
-<?php require_once "data_access.php"; ?>
+<?php  require_once (realpath(dirname(__FILE__)."/data_access.php")); ?>
 
 <?php
 
@@ -15,7 +15,7 @@
 	}
 
 	function getAllCustomerDB(){
-		$sql = "SELECT id, name, email, phone FROM customer";
+		$sql = "SELECT * FROM customer";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		return $result;
@@ -28,11 +28,52 @@
 		return $person;
 	}
 
+	function getCustomerByNameDB($name){
+		$sql = "SELECT * FROM customer WHERE name = '$name'";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		//var_dump($person);
+		return $result;
+	}
+
+	function getCustomerByEmailDB($email){
+		$sql = "SELECT * FROM customer WHERE email = '$email'";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		//var_dump($person);
+		return $result;
+	}
+
+	function getCustomerByJoinDateDB($date){
+		$sql = "SELECT * FROM customer WHERE join_date = '$date'";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		//var_dump($person);
+		return $result;
+	}
+
+	function getCustomerByReviewDB($review){
+		$sql = "SELECT * FROM customer WHERE CAST(review AS DECIMAL) = CAST('$review' AS DECIMAL)";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		//var_dump($person);
+		return $result;
+	}
+
 	function getCustomerByUsernameDB($username){
 		$sql = "SELECT * FROM customer WHERE username = '$username'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
+		//var_dump($person);
 		return $person;
+	}
+
+	function getCustomerByUsernamePersonDB($username){
+		$sql = "SELECT * FROM customer WHERE username = '$username'";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		//var_dump($person);
+		return $result;
 	}
 
 	function checkCustomerLoginDB($username, $password){

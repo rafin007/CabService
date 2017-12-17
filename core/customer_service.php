@@ -25,6 +25,26 @@
 		return getCustomerByUsernameDB($username);
 	}
 
+    function getCustomerByUsernamePerson($username){
+		return getCustomerByUsernamePersonDB($username);
+	}
+
+    function getCustomerByName($name){
+		return getCustomerByNameDB($name);
+	}
+
+    function getCustomerByEmail($email){
+		return getCustomerByEmailDB($email);
+	}
+
+    function getCustomerByJoinDate($date){
+		return getCustomerByJoinDateDB($date);
+	}
+
+    function getCustomerByReview($review){
+		return getCustomerByReviewDB($review);
+	}
+
     function checkCustomerLogin($username, $password){
         return checkCustomerLoginDB($username, $password);
     }
