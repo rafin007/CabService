@@ -12,6 +12,31 @@
 
     $persons = getAllEmployee();
 
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        if(!empty($_POST['value']) && !empty($_POST['filter'])){
+            $filter = $_POST['filter'];
+            $value = $_POST['value'];
+
+            if($filter === "name"){
+                $persons = getEmployeeByName($value);
+            }
+            else if($filter === "username"){
+                $persons = getEmployeeByUserNamePerson($value);
+            }
+            else if($filter === "email"){
+                $persons = getEmployeeByEmail($value);
+            }
+            else if($filter === "salary"){
+                $persons = getEmployeeBySalary($value);
+            }
+            else if($filter === "type"){
+                $persons = getEmployeeByType($value);
+            }
+            else if($filter === "any"){
+                $persons = getAllEmployee();
+            }
+        }
+    }
 ?>
 
 <html>
@@ -73,44 +98,60 @@
             </td>
 
             <td colspan="2" width="70%" valign="top" align="left">
-                <fieldset>
-                    <legend>
-                        <b>EMPLOYEE | SEARCH</b>
-                    </legend>
-                    Filter By
-                    <select>
-                        <option>Any</option>
-                        <option>Name</option>
-                        <option>Email</option>
-                        <option>Join Date</option>
-                    </select>
-                    <input />
-                    <input type="submit" value="Search" />
+                <div id="suggestion"></div>
+                <form method="post">
+                    <fieldset>
+                        <legend>
+                            <b>EMPLOYEE | SEARCH</b>
+                        </legend>
+                        Filter By
+                        <select name="filter" id="drop">
+                            <option value="any">Any</option>
+                            <option value="name">Name</option>
+                            <option value="username">Username</option>
+                            <option value="email">Email</option>
+                            <option value="salary">Salary</option>
+                            <option value="type">Employee Type</option>
+                        </select>
+                        <input type="text" name="value"/>
+                        <input type="submit" value="Search"/>
 
-                </fieldset>
+                    </fieldset>
+                </form>
                 <br>
                 <table width="100%" cellspacing="0" border="1" cellpadding="5">
                 <tr>
-                    <th>Name</th>
+                    <th>First Name</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Salary</th>
+                    <th>Employee Type</th>
                     <th>Action</th>
                 </tr>
                 <?php
+                    if(!$persons->num_rows){
+                        echo "<tr>";
+                            echo "<td colspan='6' align='center'>";
+                                echo "<h2>No results found!</h2>";
+                            echo "</td>";
+                        echo "</tr>";
+                    }
                     foreach($persons as $person){
     				    echo "<tr>";
         				     echo "<td>".$person['name']."</td>";
         					 echo "<td>".$person['email']."</td>";
         					 echo "<td>".$person['phone']."</td>";
+                             echo "<td>".$person['salary']."</td>";
+                             echo "<td>".$person['type']."</td>";
         					 echo "<td>";
                 ?>
                                  <a href="EmployeeProfile.html">View</a> |
                                  <a href="EmployeeProfileEdit.html">Edit</a> |
                                  <a href="EmployeeProfileDelete.html">Delete</a>
-                        <?php
+                <?php
                              echo "</td>";
-                          }
-    				echo "</tr>";
+    				    echo "</tr>";
+                    }
                 ?>
 
             </table>
@@ -132,3 +173,6 @@
         </tr>
 
     </table>
+
+</body>
+</html>

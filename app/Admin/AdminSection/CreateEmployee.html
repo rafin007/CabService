@@ -16,6 +16,7 @@
         $errorMessage = "";
 
         $name = $_POST['name'];
+        $fullname = $_POST['fullname'];
         $username = $_POST['username'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
@@ -39,6 +40,10 @@
             $status = false;
             $errorMessage .= "Name is not valid!<br>";
         }
+        if(!validateFullName($fullname)){
+            $status = false;
+            $errorMessage .= "Full name is not valid!<br>";
+        }
         if(!validateEmail($email)){
             $status = false;
             $errorMessage .= "Email is not valid!<br>";
@@ -60,7 +65,7 @@
             $errorMessage .= "Phone is not valid!<br>";
         }
         if($status){
-            if(createEmployee($name, $username, $password, $email, $phone, $salary, $type, $gender)){
+            if(createEmployee($name, $fullname, $username, $password, $email, $phone, $salary, $type, $gender)){
                 $updateStatus = true;
             }
             else{
@@ -143,6 +148,8 @@
                             <legend>CREATE | EMPLOYEE</legend>
 
                             <p>Name: <input type="text" name="name" value=""></p>
+
+                            <p>Full Name: <input type="text" name="fullname" value=""></p>
 
                             <p>Username: <input type="text" name="username" value=""></p>
 
