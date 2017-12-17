@@ -36,6 +36,34 @@
         return $status;
     }
 
+    function validateFullName($name){
+        $status = false;
+        if($name == ""){
+            return $status;
+        }
+
+        if(str_word_count($name) <= 1){
+            return $status;
+        }
+
+        if(($name[0] >= 'A' && $name[0] <= 'Z') || ($name[0] >= 'a' && $name[0] <= 'z')){
+
+            for($i=0; $i<strlen($name); $i++){
+
+                if(($name[$i] >= 'A' && $name[$i] <= 'Z') || ($name[$i] >= 'a' && $name[$i] <= 'z') || $name[$i] == '.' || $name[$i] == '-' || $name[$i] == ' '){
+                    $status = true;
+
+                }
+                else{
+
+                    $status = false;
+                    break;
+                }
+            }
+        }
+        return $status;
+    }
+
     function validateEmail($email){
         $email = explode("@", $email);
         $status = false;
