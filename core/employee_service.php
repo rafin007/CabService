@@ -2,8 +2,8 @@
 
 <?php
 
-    function createEmployee($name, $username, $password, $email, $phone, $salary, $type, $gender){
-        return createEmployeeDB($name, $username, $password, $email, $phone, $salary, $type, $gender);
+    function createEmployee($name, $fullname, $username, $password, $email, $phone, $salary, $type, $gender){
+        return createEmployeeDB($name, $fullname, $username, $password, $email, $phone, $salary, $type, $gender);
     }
 
     function deleteEmployee($id){
@@ -26,7 +26,31 @@
 		return getEmployeeByUsernameDB($username);
 	}
 
+    function getEmployeeByUsernamePerson($username){
+		return getEmployeeByUsernamePersonDB($username);
+	}
+
+    function getEmployeeByName($name){
+		return getEmployeeByNameDB($name);
+	}
+
+    function getEmployeeByEmail($email){
+		return getEmployeeByEmailDB($email);
+	}
+
+    function getEmployeeBySalary($salary){
+		return getEmployeeBySalaryDB($salary);
+	}
+
+    function getEmployeeByType($type){
+		return getEmployeeByTypeDB($type);
+	}
+
     function checkEmployeeLogin($username, $password){
         return checkEmployeeLoginDB($username, $password);
+    }
+
+    function employeeSearch($value, $filter){
+        return employeeSearchDB($value, $filter);
     }
 ?>

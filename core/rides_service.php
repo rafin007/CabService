@@ -1,4 +1,4 @@
-<?php require_once "../data/rides_data_access.php" ?>
+<?php  require_once (realpath(dirname(__FILE__)."/../data/rides_data_access.php")); ?>
 <?php
 
     function createRide($ride){
@@ -19,6 +19,26 @@
 
     function getRideById($id){
         return getRideByIdDB($id);
+    }
+
+    function getRideByCustomerName($name){
+        return getRideByCustomerNameDB($name);
+    }
+
+    function getRideByDriverName($name){
+        return getRideByDriverNameDB($name);
+    }
+
+    function getRideByDate($date){
+        return getRideByDateDB($date);
+    }
+
+    function getRideByPickup($location){
+        return getRideByPickupDB($location);
+    }
+
+    function getRideByDrop($location){
+        return getRideByDropDB($location);
     }
 
 ?>
