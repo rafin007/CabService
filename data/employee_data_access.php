@@ -32,7 +32,7 @@
 	}
 
 	function getEmployeeByNameDB($name){
-		$sql = "SELECT * FROM employee WHERE name = '$name'";
+		$sql = "SELECT * FROM employee WHERE name LIKE '$name%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);
@@ -40,7 +40,7 @@
 	}
 
 	function getEmployeeByEmailDB($email){
-		$sql = "SELECT * FROM employee WHERE email = '$email'";
+		$sql = "SELECT * FROM employee WHERE email LIKE '$email%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);
@@ -48,7 +48,7 @@
 	}
 
 	function getEmployeeByTypeDB($type){
-		$sql = "SELECT * FROM employee WHERE type = '$type'";
+		$sql = "SELECT * FROM employee WHERE type LIKE '$type%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);
@@ -72,7 +72,7 @@
 	}
 
 	function getEmployeeByUsernamePersonDB($username){
-		$sql = "SELECT * FROM employee WHERE username = '$username'";
+		$sql = "SELECT * FROM employee WHERE username LIKE '$username%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);

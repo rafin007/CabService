@@ -1,4 +1,5 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
 <?php
 
@@ -10,12 +11,37 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    $fares = getAllRidePending();
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        if(!empty($_POST['value']) && !empty($_POST['filter'])){
+            $filter = $_POST['filter'];
+            $value = $_POST['value'];
+
+            if($filter === "customer"){
+                $fares = getRideByCustomerNamePending($value);
+            }
+            else if($filter === "date"){
+                $fares = getRideByDatePending($value);
+            }
+            else if($filter === "pickup_point"){
+                $fares = getRideByPickupPending($value);
+            }
+            else if($filter === "drop_point"){
+                $fares = getRideByDropPending($value);
+            }
+            else if($filter === "any"){
+                $fares = getAllRidePending();
+            }
+        }
+    }
+
 ?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>AVAILABLE FareS</title>
+    <title>AVAILABLE FARES</title>
 </head>
 
 <body>
@@ -59,6 +85,7 @@
 
                     <li><a href="../DriverSection/AvailableFares.html">Available Fares</a></li>
                     <li><a href="../DriverSection/AllFares.html">All Fares</a></li>
+                    <li><a href="../DriverSection/QueuedFares.html">Queued Fares</a></li>
                     <li><a href="../DriverSection/EmployeeInfo.html">Employee Information</a></li>
                     <li><a href="../DriverSection/GetDirections.html">Get Directions</a></li>
                     <li><a href="../DriverSection/Issue.html">Report an Issue</a></li>
@@ -70,57 +97,61 @@
 
             <td colspan="2" width="70%" valign="top" align="left">
 
-                <fieldset>
-                        <legend>
-                            <b>FARE | SEARCH</b>
-                        </legend>
-                        Filter By
-                        <select>
-                            <option>Any</option>
-                            <option>Pick up point</option>
-                            <option>Drop Point</option>
-                            <option>Date</option>
-                        </select>
-                        <input />
-                        <input type="submit" value="Search" />
+                <form method="post">
+        		    <fieldset>
+                            <legend>
+                                <b>FARE | SEARCH</b>
+                            </legend>
+                            Filter By
+                            <select name="filter">
+                                <option value="any">Any</option>
+                                <option value="customer">Customer</option>
+                                <option value="driver">Driver</option>
+                                <option value="pickup_point">Pick up point</option>
+                                <option value="drop_point">Drop Point</option>
+                                <option value="date">Date</option>
 
-    		    </fieldset>
+                            </select>
+                            <input type="text" name="value"/>
+                            <input type="submit" value="Search" />
+
+        		    </fieldset>
+                </form>
 
                 <br>
 
                 <table width="100%" border="1px" cellspacing="0" cellpadding="5px">
                     <tr>
                         <th>Journey Type</th>
-                        <th>Pickup Address</th>
-                        <th>Drop Address</th>
-                        <th>Pickup Date</th>
-                        <th>Pickup Time</th>
-                        <th>Option</th>
+                        <th>Pickup Point</th>
+                        <th>Drop Point</th>
+                        <th>Date</th>
+                        <th>Fare</th>
+                        <th>Action</th>
                     </tr>
-					<tr>
-					     <td>Two way</td>
-						 <td>Banani,chaimanbari</td>
-						 <td>Uttora,13 no. sector</td>
-						 <td>16/10/2017</td>
-						 <td>11.00 am</td>
-						 <td>
-						     <a href="../..View.html">view</a>
-							 <a href="../..Edit.html">edit</a>
-							 <a href="../..Delete.html">delete</a>
-						</td>
-                    </tr>
-										<tr>
-					     <td>One way</td>
-						 <td>Mirpur-1</td>
-						 <td>Uttora,9 no. sector</td>
-						 <td>20/10/2017</td>
-						 <td>2.00 pm</td>
-						 <td>
-						     <a href="../..View.html">view</a>
-							 <a href="../..Edit.html">edit</a>
-							 <a href="../..Delete.html">delete</a>
-						</td>
-					</tr>
+                        <?php
+                        if(!$fares->num_rows){
+                            echo "<tr>";
+                                echo "<td colspan='9' align='center'>";
+                                    echo "<h2>No results found!</h2>";
+                                echo "</td>";
+                            echo "</tr>";
+                        }
+                        foreach($fares as $fare){
+                            echo "<tr>";
+            					     echo "<td>".$fare['journey_type']."</td>";
+            						 echo "<td>".$fare['pickup_point']."</td>";
+            						 echo "<td>".$fare['drop_point']."</td>";
+            						 echo "<td>".$fare['date']."</td>";
+            						 echo "<td>".$fare['fare']." BDT</td>";
+                                     echo "<td>";
+                        ?>
+                                         <a href="ViewFare.html?id=<?=$fare['rides_id']?>">Apply</a>
+                        <?php
+                                    echo "</td>";
+        					echo "</tr>";
+                        }
+                        ?>
 
                 </table>
 

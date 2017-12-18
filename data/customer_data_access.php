@@ -29,7 +29,7 @@
 	}
 
 	function getCustomerByNameDB($name){
-		$sql = "SELECT * FROM customer WHERE name = '$name'";
+		$sql = "SELECT * FROM customer WHERE name LIKE '$name%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);
@@ -37,7 +37,7 @@
 	}
 
 	function getCustomerByEmailDB($email){
-		$sql = "SELECT * FROM customer WHERE email = '$email'";
+		$sql = "SELECT * FROM customer WHERE email LIKE '$email%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);
@@ -45,7 +45,7 @@
 	}
 
 	function getCustomerByJoinDateDB($date){
-		$sql = "SELECT * FROM customer WHERE join_date = '$date'";
+		$sql = "SELECT * FROM customer WHERE join_date LIKE '$date%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);
@@ -69,7 +69,7 @@
 	}
 
 	function getCustomerByUsernamePersonDB($username){
-		$sql = "SELECT * FROM customer WHERE username = '$username'";
+		$sql = "SELECT * FROM customer WHERE username LIKE '$username%'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		//var_dump($person);

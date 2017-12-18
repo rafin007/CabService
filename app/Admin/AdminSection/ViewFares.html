@@ -31,10 +31,10 @@
                 $fares = getRideByPickup($value);
             }
             else if($filter === "drop_point"){
-                $fares = getCustomerByDrop($value);
+                $fares = getRideByDrop($value);
             }
             else if($filter === "any"){
-                $fares = getAllCustomer();
+                $fares = getAllRide();
             }
         }
     }

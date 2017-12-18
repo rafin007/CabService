@@ -1,4 +1,5 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
 <?php
 
@@ -10,12 +11,14 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    $queues = getQueuedRideByDriverId($_SESSION['id']);
+
 ?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>EDIT PROFILE</title>
+    <title>QUEUED FARES</title>
 </head>
 
 <body>
@@ -44,11 +47,11 @@
                 <hr>
                 <ul>
 
-                    <li><a href="Dashboard.html">Dashboard</a></li>
-                    <li><a href="Profile.html">View Profile</a></li>
-                    <li><a href="EditProfile.html">Edit Profile</a></li>
-                    <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
-                    <li><a href="ChangePassword.html">Change Password</a></li>
+                    <li><a href="../AccountSection/Dashboard.html">Dashboard</a></li>
+                    <li><a href="../AccountSection/Profile.html">View Profile</a></li>
+                    <li><a href="../AccountSection/EditProfile.html">Edit Profile</a></li>
+                    <li><a href="../AccountSection/ProfilePicture.html">Change Profile Picture</a></li>
+                    <li><a href="../AccountSection/ChangePassword.html">Change Password</a></li>
                     <li><a href="../../Home.html">Logout</a></li>
 
                 </ul>
@@ -69,33 +72,29 @@
 
             </td>
 
-            <td colspan="2" width="70%" valign="middle" align="center">
+            <td colspan="2" width="70%" valign="top" align="left">
 
-                <form class="" action="">
+                <form method="post">
 
                     <fieldset>
 
-                        <legend>EDIT PROFILE</legend>
+                        <h2>Listing Queued Fares..</h2>
+                        <hr>
+                        <?php
 
-                        <p>Name: <input type="text" name="name" value="<?=$employee['name'];?>"></p>
-                        <hr>
-                        <p>Email: <input type="email" name="email" value="<?=$employee['email'];?>"></p>
-                        <hr>
-                        <p>Username: <input type="text" name="username" value="<?=$employee['username'];?>" readonly></p>
-                        <hr>
-                        <p>Employee Type: <input type="text" name="type" value="<?=$employee['type'];?>" readonly></p>
-                        <hr>
-                        <p>Gender:
+                            foreach($queues as $queue){
 
-                            <input type="radio" name="gender" id="male" value="Male">Male
-                            <input type="radio" name="gender" id="female" value="Female">Female
-                            <input type="radio" name="gender" id="other" value="Other">Other
+                                echo "Customer Name: ".$queue['customer_full_name']."<br>";
+                                echo "Journey Type: ".$queue['journey_type']."<br>";
+                                echo "Pick up Address: ".$queue['pickup_point']."<br>";
+                                echo "Drop Address: ".$queue['drop_point']."<br>";
+                                echo "Journey Date: ".$queue['date']."<br>";
+                                echo "Distance:".$queue['distance']."<br>";
+                                echo "Fare:".$queue['fare']."<br>";
+                                echo "<hr>";
 
-                        </p>
-                        <hr>
-                        <p>Phone: <input type="tel" name="phone" value="<?=$employee['phone'];?>"></p>
-                        <hr>
-                        <input type="submit" value="Submit">
+                            }
+                        ?>
 
                     </fieldset>
 
@@ -118,23 +117,5 @@
         </tr>
 
     </table>
-
-    <script type="text/javascript">
-
-        var gender = "<?=$employee['gender'];?>";
-
-        if(gender === "Male"){
-            document.getElementById("male").checked = true;
-        }
-        else if(gender === "Female"){
-            document.getElementById("female").checked = true;
-        }
-        else {
-            document.getElementById("other").checked = true;
-        }
-
-    </script>
-
 </body>
-
 </html>
