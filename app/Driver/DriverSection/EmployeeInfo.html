@@ -1,0 +1,105 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $employee = getEmployeeById($_SESSION['id']);
+    }
+
+?>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Employee Information</title>
+</head>
+
+<body>
+
+    <table width="100%" border="1px" height="630px" cellpadding="20px" cellspacing="0px" align="center">
+
+        <tr>
+            <td valign="middle" height="50px" colspan="3">
+                <img src="../../Resources/x.png" width="150px" align="left">
+
+                <div align="right">
+
+                    Logged in as <a href="../AccountSection/Profile.html"><?=$employee['name'];?></a> |
+                    <a href="../../Home.html">Logout</a>
+
+                </div>
+
+            </td>
+        </tr>
+
+        <tr height="450px">
+
+            <td valign="top" width="15%">
+
+                <h2>Account</h2>
+                <hr>
+                <ul>
+
+                    <li><a href="../AccountSection/Dashboard.html">Dashboard</a></li>
+                    <li><a href="../AccountSection/Profile.html">View Profile</a></li>
+                    <li><a href="../AccountSection/EditProfile.html">Edit Profile</a></li>
+                    <li><a href="../AccountSection/ProfilePicture.html">Change Profile Picture</a></li>
+                    <li><a href="../AccountSection/ChangePassword.html">Change Password</a></li>
+                    <li><a href="../../Home.html">Logout</a></li>
+
+                </ul>
+
+                <h2>Driver Section</h2>
+                <hr>
+                <ul>
+
+                    <li><a href="../DriverSection/AvailableFares.html">Available Fares</a></li>
+                    <li><a href="../DriverSection/AllFares.html">All Fares</a></li>
+                    <li><a href="../DriverSection/QueuedFares.html">Queued Fares</a></li>
+                    <li><a href="../DriverSection/EmployeeInfo.html">Employee Information</a></li>
+                    <li><a href="../DriverSection/GetDirections.html">Get Directions</a></li>
+                    <li><a href="../DriverSection/Issue.html">Report an Issue</a></li>
+
+
+                </ul>
+
+            </td>
+
+            <td colspan="2" width="70%" valign="top" align="left">
+
+                <fieldset>
+
+                    <legend>EMPLOYEE | INFORMATION</legend>
+
+                    <h3>Member since: 10/10/10</h3>
+                    <hr>
+                    <h3>Salary: 20,000 BDT</h3>
+                    <hr>
+                    <h3>Total Fares(Today): 5</h3>
+                    <h3>Total Fares(Last 7 days): 20</h3>
+                    <h3>Total Fares(Last 30 days): 70</h3>
+                    <hr>
+
+                </fieldset>
+
+            </td>
+
+        </tr>
+
+        <tr height="50px">
+
+            <td colspan="3" align="center">
+
+                <a href="../../About.html">About</a> |
+                <a href="../../Terms.html">Terms</a> |
+                <a href="../../Privacy.html">Privacy</a>
+
+            </td>
+
+        </tr>
+
+    </table>

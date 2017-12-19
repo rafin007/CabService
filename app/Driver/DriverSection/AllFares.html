@@ -1,0 +1,174 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
+
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $employee = getEmployeeById($_SESSION['id']);
+    }
+
+    $fares = getRideByDriverId($_SESSION['id']);
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        if(!empty($_POST['value']) && !empty($_POST['filter'])){
+            $filter = $_POST['filter'];
+            $value = $_POST['value'];
+
+            if($filter === "customer"){
+                $fares = getRideByCustomerNameDriver($value, $_SESSION['id']);
+            }
+            else if($filter === "date"){
+                $fares = getRideByDateDriver($value, $_SESSION['id']);
+            }
+            else if($filter === "pickup_point"){
+                $fares = getRideByPickupDriver($value, $_SESSION['id']);
+            }
+            else if($filter === "drop_point"){
+                $fares = getRideByDropDriver($value, $_SESSION['id']);
+            }
+            else if($filter === "any"){
+                $fares = getRideByDriverId($_SESSION['id']);
+            }
+        }
+    }
+
+?>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ALL Fares</title>
+</head>
+
+<body>
+
+    <table width="100%" border="1px" height="630px" cellpadding="20px" cellspacing="0px" align="center">
+
+        <tr>
+            <td valign="middle" height="50px" colspan="3">
+                <img src="../../Resources/x.png" width="150px" align="left">
+
+                <div align="right">
+
+                    Logged in as <a href="../AccountSection/Profile.html"><?=$employee['name'];?></a> |
+                    <a href="../../Home.html">Logout</a>
+
+                </div>
+
+            </td>
+        </tr>
+
+        <tr height="450px">
+
+            <td valign="top" width="15%">
+
+                <h2>Account</h2>
+                <hr>
+                <ul>
+
+                    <li><a href="../AccountSection/Dashboard.html">Dashboard</a></li>
+                    <li><a href="../AccountSection/Profile.html">View Profile</a></li>
+                    <li><a href="../AccountSection/EditProfile.html">Edit Profile</a></li>
+                    <li><a href="../AccountSection/ProfilePicture.html">Change Profile Picture</a></li>
+                    <li><a href="../AccountSection/ChangePassword.html">Change Password</a></li>
+                    <li><a href="../../Home.html">Logout</a></li>
+
+                </ul>
+
+                <h2>Driver Section</h2>
+                <hr>
+                <ul>
+
+                    <li><a href="../DriverSection/AvailableFares.html">Available Fares</a></li>
+                    <li><a href="../DriverSection/AllFares.html">All Fares</a></li>
+                    <li><a href="../DriverSection/QueuedFares.html">Queued Fares</a></li>
+                    <li><a href="../DriverSection/EmployeeInfo.html">Employee Information</a></li>
+                    <li><a href="../DriverSection/GetDirections.html">Get Directions</a></li>
+                    <li><a href="../DriverSection/Issue.html">Report an Issue</a></li>
+
+
+                </ul>
+
+            </td>
+
+            <td colspan="2" width="70%" valign="top" align="left">
+                <h3>Listing completed fares..</h3>
+                <form method="post">
+                    <fieldset>
+                            <legend>
+                                <b>FARE | SEARCH</b>
+                            </legend>
+                            Filter By
+                            <select name="filter">
+                                <option value="any">Any</option>
+                                <option value="customer">Customer</option>
+                                <option value="pickup_point">Pick up point</option>
+                                <option value="drop_point">Drop Point</option>
+                                <option value="date">Date</option>
+
+                            </select>
+                            <input type="text" name="value"/>
+                            <input type="submit" value="Search" />
+
+                    </fieldset>
+                </form>
+
+                <br>
+
+                <table width="100%" border="1px" cellspacing="0" cellpadding="5px">
+                    <tr>
+                        <th>Journey Type</th>
+						<th>Driver Name</th>
+						<th>Customer Name</th>
+                        <th>Pickup Point</th>
+                        <th>Drop Point</th>
+                        <th>Date</th>
+                        <th>Distance</th>
+                        <th>Fare</th>
+                        <th>Status</th>
+                    </tr>
+                    <?php
+                        if(!$fares->num_rows){
+                            echo "<tr>";
+                                echo "<td colspan='9' align='center'>";
+                                    echo "<h2>No results found!</h2>";
+                                echo "</td>";
+                            echo "</tr>";
+                        }
+                        foreach($fares as $fare){
+                            echo "<tr>";
+            					     echo "<td>".$fare['journey_type']."</td>";
+            						 echo "<td><a href='EmployeeProfile.html'>".$fare['employee_full_name']."</a></td>";
+                                     echo "<td>".$fare['customer_full_name']."</td>";
+            						 echo "<td>".$fare['pickup_point']."</td>";
+            						 echo "<td>".$fare['drop_point']."</td>";
+            						 echo "<td>".$fare['date']."</td>";
+            						 echo "<td>".$fare['distance']." km</td>";
+            						 echo "<td>".$fare['fare']." BDT</td>";
+                                     echo "<td>".$fare['status']."</td>";
+        					echo "</tr>";
+                        }
+                    ?>
+                </table>
+
+            </td>
+
+        </tr>
+
+        <tr height="50px">
+
+            <td colspan="3" align="center">
+
+                <a href="../../About.html">About</a> |
+                <a href="../../Terms.html">Terms</a> |
+                <a href="../../Privacy.html">Privacy</a>
+
+            </td>
+
+        </tr>
+
+    </table>

@@ -1,0 +1,154 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $employee = getEmployeeById($_SESSION['id']);
+    }
+
+?>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>EDIT PROFILE</title>
+</head>
+
+<body>
+
+    <table width="100%" border="1px" height="630px" cellpadding="20px" cellspacing="0px" align="center">
+
+        <tr>
+            <td valign="middle" height="50px" colspan="3">
+                <img src="../../Resources/x.png" width="200px" align="left">
+
+                <div align="right">
+
+                    Logged in as <a href="Profile.html"><?=$employee['name'];?></a> |
+                    <a href="../../Home.html">Logout</a>
+
+                </div>
+
+            </td>
+        </tr>
+
+        <tr height="450px">
+
+            <td valign="top" width="15%">
+
+                <h2>Account</h2>
+                <hr>
+                <ul>
+
+                    <li><a href="Dashboard.html">Dashboard</a></li>
+                    <li><a href="Profile.html">View Profile</a></li>
+                    <li><a href="EditProfile.html">Edit Profile</a></li>
+                    <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
+                    <li><a href="ChangePassword.html">Change Password</a></li>
+                    <li><a href="../../Home.html">Logout</a></li>
+
+                </ul>
+
+                <h2>Admin Section</h2>
+                <hr>
+                <ul>
+
+                    <li><a href="../AdminSection/Revenue.html">View Revenue</a></li>
+                    <li><a href="../AdminSection/CreateEmployee.html">Create Employee</a></li>
+                    <li><a href="../AdminSection/ViewCustomers.html">View Customers</a></li>
+                    <li><a href="../AdminSection/ViewEmployees.html">View Employees</a></li>
+                    <li><a href="../AdminSection/ViewFares.html">View all Fares</a></li>
+                    <li><a href="../AdminSection/Insights.html">Insights</a></li>
+                    <li><a href="../AdminSection/ComplainBook.html">Complain Book</a></li>
+
+                </ul>
+
+            </td>
+
+            <td colspan="2" width="70%" valign="middle" align="center">
+
+                <form class="" action="">
+
+                    <fieldset>
+
+                        <legend>EDIT PROFILE</legend>
+
+                        <p>Name: <input type="text" name="name" value="<?=$employee['name'];?>"></p>
+                        <hr>
+                        <p>Email: <input type="email" name="email" value="<?=$employee['email'];?>"></p>
+                        <hr>
+                        <p>Username: <input type="text" name="username" value="<?=$employee['username'];?>"></p>
+                        <hr>
+                        <p>Employee Type:
+                            <select name="">
+                                <option value="Admin" id="admin">Admin</option>
+                                <option value="Driver" id="driver">Driver</option>
+                            </select>
+                        </p>
+                        <hr>
+                        <p>Gender:
+
+                            <input type="radio" name="gender" id="male" value="Male">Male
+                            <input type="radio" name="gender" id="female" value="Female">Female
+                            <input type="radio" name="gender" id="other" value="Other">Other
+
+                        </p>
+                        <hr>
+                        <p>Phone: <input type="tel" name="phone" value="<?=$employee['phone'];?>"> (dd/mm/yyyy)</p>
+                        <hr>
+                        <input type="submit" value="Submit">
+
+                    </fieldset>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        <tr height="50px">
+
+            <td colspan="3" align="center">
+
+                <a href="../../About.html">About</a> |
+                <a href="../../Terms.html">Terms</a> |
+                <a href="../../Privacy.html">Privacy</a>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <script type="text/javascript">
+
+        var gender = "<?=$employee['gender'];?>";
+
+        if(gender === "Male"){
+            document.getElementById("male").checked = true;
+        }
+        else if(gender === "Female"){
+            document.getElementById("female").checked = true;
+        }
+        else {
+            document.getElementById("other").checked = true;
+        }
+
+        var type = "<?=$employee['type'];?>";
+        if(type === "Admin"){
+            document.getElementById("admin").selected = true;
+        }
+        else if (type === "Driver") {
+            document.getElementById("driver").selected = true;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
