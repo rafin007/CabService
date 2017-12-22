@@ -1,4 +1,6 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
 <?php
 
@@ -10,7 +12,16 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    $date = date('Y-m-d');
+
+    $employees = getAllEmployee();
+    $admins = getAllAdmin();
+    $drivers = getAllDriver();
+    $fares = getAllRide();
+    $customers = getAllCustomer();
+
 ?>
+
 <html>
 
 <head>
@@ -73,14 +84,14 @@
 
                 <fieldset>
                     <legend>INSIGHTS</legend>
-                    <p>Total Employees: 30</p>
+                    <p>Total Employees: <?=$employees->num_rows;?></p>
                     <ul>
-                        <li><p>Total Admin: 5</p></li>
-                        <li><p>Total Drivers: 25</p></li>
+                        <li><p>Total Admins: <?=$admins->num_rows;?></p></li>
+                        <li><p>Total Drivers: <?=$drivers->num_rows;?></p></li>
                     </ul>
                     <hr>
-                    <p>Total Customers: 19</p>
-                    <p>Total Fares: 20</p>
+                    <p>Total Customers: <?=$customers->num_rows;?></p>
+                    <p>Total Fares: <?=$fares->num_rows;?></p>
                     <hr>
                     <p>Driver with most fare(Today): <a href="EmployeeProfile.html">Bob</a></p>
                     <p>Driver with most fare(Last 7 days): <a href="EmployeeProfile.html">Bob</a></p>
@@ -129,3 +140,6 @@
         </tr>
 
     </table>
+
+</body>
+</html>

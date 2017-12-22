@@ -1,4 +1,5 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
 
 <?php
 
@@ -10,7 +11,22 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    $customer = getCustomerById($_GET['id']);
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        $successMessage = "";
+        $status = true;
+
+        if(!deleteCustomer($customer['id'])){
+            $status = false;
+        }
+        else{
+            $successMessage .= "<p>Customer deleted successfully!</p>";
+        }
+    }
+
 ?>
+
 <html>
 
 <head>
@@ -72,7 +88,7 @@
 
             <td colspan="2" width="70%" valign="top" align="center">
 
-                <form class="" action="">
+                <form method="post">
 
                     <fieldset>
 
@@ -84,11 +100,17 @@
 
                                 <td colspan="3">
 
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
+                                    Name: <?=$customer['name'];?>
+                                    <hr> Full Name: <?=$customer['customer_full_name'];?>
+                                    <hr> Username: <?=$customer['username'];?>
+                                    <hr> Email: <?=$customer['email'];?>
+                                    <hr> Gender: <?=$customer['gender'];?>
+                                    <hr> Phone: <?=$customer['phone'];?>
+                                    <hr> Join Date: <?=$customer['join_date'];?>
+                                    <hr> Review: <?=$customer['review'];?>
                                     <hr>
+                                    <div id="errorDiv"></div>
+                                    <p><input type="submit" name="" value="Confirm Delete"></p>
 
                                 </td>
 
@@ -97,12 +119,6 @@
                                     <img src="something.jpg" alt="">
 
                                 </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td align="left" colspan="3"><a href="#">Delete Profile</a></td>
 
                             </tr>
 
@@ -130,6 +146,24 @@
         </tr>
 
     </table>
+
+    <script type="text/javascript">
+
+        var status = "<?=$status;?>";
+        var successMessage = "<?=$successMessage;?>";
+        var errorDiv = document.getElementById("errorDiv");
+        errorDiv.style.fontSize = 25+"px";
+
+        if(status){
+            errorDiv.innerHTML = successMessage;
+            errorDiv.style.color = "green";
+        }
+        else {
+            errorDiv.innerHTML = "<p>Internal error, please try again!</p>";
+            errorDiv.style.color = "red";
+        }
+
+    </script>
 
 </body>
 

@@ -10,7 +10,9 @@
 	}
 
 	function deleteEmployeeDB($id){
-
+		$sql = "DELETE FROM employee WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function updateEmployeeDB($id, $name, $fullname, $username, $password, $email, $phone, $salary, $type, $gender){
@@ -21,6 +23,20 @@
 
 	function getAllEmployeeDB(){
 		$sql = "SELECT * FROM employee";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getAllDriverDB(){
+		$sql = "SELECT * FROM employee WHERE type = 'Driver'";
+		$result = executeSQL($sql);
+		$person = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getAllAdminDB(){
+		$sql = "SELECT * FROM employee WHERE type = 'Admin'";
 		$result = executeSQL($sql);
 		$person = mysqli_fetch_assoc($result);
 		return $result;
@@ -103,6 +119,12 @@
 
 	function updateEmployeePasswordDB($password, $id){
 		$sql = "UPDATE employee SET password = '$password' WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
+	}
+
+	function updateEmployeeProfileDB($id, $name, $fullname, $username, $email, $phone, $gender){
+		$sql = "UPDATE employee SET name = '$name', employee_full_name = '$fullname', username = '$username', email = '$email', phone = '$phone', gender = '$gender' WHERE id = '$id'";
 		$result = executeSQL($sql);
 		return $result;
 	}
