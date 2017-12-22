@@ -17,7 +17,7 @@
         if(!empty($_POST['value']) && !empty($_POST['filter'])){
             $filter = $_POST['filter'];
             $value = $_POST['value'];
-            
+
             if($filter === "name"){
                 $persons = getCustomerByName($value);
             }
@@ -146,9 +146,9 @@
                              echo "<td>".$person['review']."</td>";
         					 echo "<td>";
                 ?>
-                                 <a href="CustomerProfile.html">View</a> |
-                                 <a href="CustomerProfileEdit.html">Edit</a> |
-                                 <a href="CustomerProfileDelete.html">Delete</a>
+                                 <a href="CustomerProfile.html?id=<?=$person['id'];?>">View</a> |
+                                 <a href="CustomerProfileEdit.html?id=<?=$person['id'];?>">Edit</a> |
+                                 <a href="CustomerProfileDelete.html?id=<?=$person['id'];?>">Delete</a>
                 <?php
                              echo "</td>";
     				    echo "</tr>";

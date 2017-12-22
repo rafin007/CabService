@@ -1,4 +1,5 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
 
 <?php
 
@@ -9,6 +10,8 @@
     else{
         $employee = getEmployeeById($_SESSION['id']);
     }
+
+    $customer = getCustomerById($_GET['id']);
 
 ?>
 
@@ -85,10 +88,14 @@
 
                                 <td colspan="3">
 
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
+                                    Name: <?=$customer['name'];?>
+                                    <hr> Full Name: <?=$customer['customer_full_name'];?>
+                                    <hr> Username: <?=$customer['username'];?>
+                                    <hr> Email: <?=$customer['email'];?>
+                                    <hr> Gender: <?=$customer['gender'];?>
+                                    <hr> Phone: <?=$customer['phone'];?>
+                                    <hr> Join Date: <?=$customer['join_date'];?>
+                                    <hr> Review: <?=$customer['review'];?>
                                     <hr>
 
                                 </td>
@@ -120,8 +127,8 @@
                 <h2>Action</h2>
                 <hr>
                 <h3>
-                    <a href="CustomerProfileDelete.html">Delete</a> |
-                    <a href="CustomerProfileEdit.html">Edit</a>
+                    <a href="CustomerProfileDelete.html?id=<?=$customer['id'];?>">Delete</a> |
+                    <a href="CustomerProfileEdit.html?id=<?=$customer['id'];?>">Edit</a>
                 </h3>
 
             </td>

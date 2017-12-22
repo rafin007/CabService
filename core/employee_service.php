@@ -10,8 +10,8 @@
         return deleteEmployeeDB($id);
     }
 
-    function updateEmployee($id){
-        return updateEmployeeDB($id);
+    function updateEmployee($id, $name, $fullname, $username, $password, $email, $phone, $salary, $type, $gender){
+        return updateEmployeeDB($id, $name, $fullname, $username, $password, $email, $phone, $salary, $type, $gender);
     }
 
     function getAllEmployee(){
@@ -52,5 +52,9 @@
 
     function employeeSearch($value, $filter){
         return employeeSearchDB($value, $filter);
+    }
+
+    function updateEmployeePassword($password, $id){
+        return updateEmployeePasswordDB($password, $id);
     }
 ?>

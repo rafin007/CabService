@@ -10,8 +10,10 @@
 
 	}
 
-	function updateCustomerDB($id){
-
+	function updateCustomerDB($id, $name, $fullName, $username, $password, $email, $phone, $gender){
+		$sql = "UPDATE customer SET name = '$name', customer_full_name = '$fullName', username = '$username', password = '$password', email = '$email', phone = '$phone', gender = '$gender' WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function getAllCustomerDB(){

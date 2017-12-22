@@ -9,8 +9,8 @@
         return deleteCustomerDB($id);
     }
 
-    function updateCustomer($id){
-        return updateCustomerDB($id);
+    function updateCustomer($id, $name, $fullName, $username, $password, $email, $phone, $gender){
+        return updateCustomerDB($id, $name, $fullName, $username, $password, $email, $phone, $gender);
     }
 
     function getAllCustomer(){
