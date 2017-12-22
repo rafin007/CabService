@@ -65,6 +65,25 @@
     }
 
 ?>
+
+<script type="text/javascript">
+
+    window.onload = function(){
+        var gender = "<?=$customer['gender'];?>";
+
+        if(gender === "Male"){
+            document.getElementById("male").checked = true;
+        }
+        else if(gender === "Female"){
+            document.getElementById("female").checked = true;
+        }
+        else {
+            document.getElementById("other").checked = true;
+        }
+    }
+
+</script>
+
 <html>
 
 <head>
@@ -138,7 +157,7 @@
                                     <hr>
                                     <p>Full Name: <input type="text" name="fullName" value="<?=$customer['customer_full_name'];?>"></p>
                                     <hr>
-                                    <p>Username: <input type="text" name="username" value="<?=$customer['username'];?>"> e.g. emp-john</p>
+                                    <p>Username: <input type="text" name="username" value="<?=$customer['username'];?>"> <i> e.g. cus-john</i></p>
                                     <hr>
                                     <p>Email: <input type="email" name="email" value="<?=$customer['email'];?>"></p>
                                     <hr>
@@ -193,21 +212,6 @@
     </table>
 
     <script type="text/javascript">
-
-        checkGender();
-        function checkGender(){
-            var gender = "<?=$customer['gender'];?>";
-
-            if(gender === "Male"){
-                document.getElementById("male").checked = true;
-            }
-            else if(gender === "Female"){
-                document.getElementById("female").checked = true;
-            }
-            else {
-                document.getElementById("other").checked = true;
-            }
-        }
 
         var status = "<?=$status;?>";
         var errorMessage = "<?=$errorMessage;?>";

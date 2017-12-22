@@ -143,9 +143,11 @@
                         }
                         foreach($fares as $fare){
                             echo "<tr>";
+                                $employeeId = $fare['employee_id'];
+                                $customerId = $fare['customer_id'];
             					     echo "<td>".$fare['journey_type']."</td>";
-            						 echo "<td><a href='EmployeeProfile.html'>".$fare['employee_full_name']."</a></td>";
-                                     echo "<td><a href='CustomerProfile.html'>".$fare['customer_full_name']."</a></td>";
+            						 echo "<td><a href='EmployeeProfile.html?id=$employeeId'>".$fare['employee_full_name']."</a></td>";
+                                     echo "<td><a href='CustomerProfile.html?id=$customerId'>".$fare['customer_full_name']."</a></td>";
             						 echo "<td>".$fare['pickup_point']."</td>";
             						 echo "<td>".$fare['drop_point']."</td>";
             						 echo "<td>".$fare['date']."</td>";

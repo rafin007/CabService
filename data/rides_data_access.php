@@ -25,7 +25,7 @@
 	}
 
 	function getAllRideDB(){
-		$sql = "SELECT rides.journey_type, rides.pickup_point, rides.drop_point, rides.distance, rides.fare, rides.date, rides.status, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id";
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;

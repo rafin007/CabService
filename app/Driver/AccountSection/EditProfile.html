@@ -1,4 +1,5 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/validation_service.php")); ?>
 
 <?php
 
@@ -10,7 +11,71 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        $status = true;
+        $errorMessage = "";
+
+        $name = $_POST['name'];
+        $fullname = $_POST['fullname'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        if(isset($_POST['gender'])){
+            $gender = $_POST['gender'];
+        }
+        else{
+            $errorMessage .= "Must select a gender<br>";
+        }
+
+        if(!validateName($name)){
+            $status = false;
+            $errorMessage .= "Name is not valid!<br>";
+        }
+        if(!validateFullName($fullname)){
+            $status = false;
+            $errorMessage .= "Full name is not valid!<br>";
+        }
+        if(!validateEmail($email)){
+            $status = false;
+            $errorMessage .= "Email is not valid!<br>";
+        }
+        if(!validateUsername($username)){
+            $status = false;
+            $errorMessage .= "Username is not valid!<br>";
+        }
+        if(!validatePhone($phone)){
+            $status = false;
+            $errorMessage .= "Phone is not valid!<br>";
+        }
+        if($status){
+            if(!updateEmployeeProfile($employee['id'], $name, $fullname, $username, $email, $phone, $gender)){
+                $status = false;
+            }
+        }
+
+    }
+
 ?>
+
+<script type="text/javascript">
+
+    window.onload = function(){
+        var gender = "<?=$employee['gender'];?>";
+
+        if(gender === "Male"){
+            document.getElementById("male").checked = true;
+        }
+        else if(gender === "Female"){
+            document.getElementById("female").checked = true;
+        }
+        else {
+            document.getElementById("other").checked = true;
+        }
+    }
+
+
+</script>
+
 <html>
 
 <head>
@@ -71,7 +136,7 @@
 
             <td colspan="2" width="70%" valign="middle" align="center">
 
-                <form class="" action="">
+                <form method="post">
 
                     <fieldset>
 
@@ -79,11 +144,11 @@
 
                         <p>Name: <input type="text" name="name" value="<?=$employee['name'];?>"></p>
                         <hr>
+                        <p>Full Name: <input type="text" name="fullname" value="<?=$employee['employee_full_name'];?>"></p>
+                        <hr>
                         <p>Email: <input type="email" name="email" value="<?=$employee['email'];?>"></p>
                         <hr>
-                        <p>Username: <input type="text" name="username" value="<?=$employee['username'];?>" readonly></p>
-                        <hr>
-                        <p>Employee Type: <input type="text" name="type" value="<?=$employee['type'];?>" readonly></p>
+                        <p>Username: <input type="text" name="username" value="<?=$employee['username'];?>"> <i> e.g. emp-john</i></p>
                         <hr>
                         <p>Gender:
 
@@ -93,8 +158,9 @@
 
                         </p>
                         <hr>
-                        <p>Phone: <input type="tel" name="phone" value="<?=$employee['phone'];?>"></p>
+                        <p>Phone: <input type="tel" name="phone" value="<?=$employee['phone'];?>"> (dd/mm/yyyy)</p>
                         <hr>
+                        <div id="errorDiv"></div>
                         <input type="submit" value="Submit">
 
                     </fieldset>
@@ -121,17 +187,18 @@
 
     <script type="text/javascript">
 
-        var gender = "<?=$employee['gender'];?>";
-
-        if(gender === "Male"){
-            document.getElementById("male").checked = true;
-        }
-        else if(gender === "Female"){
-            document.getElementById("female").checked = true;
-        }
-        else {
-            document.getElementById("other").checked = true;
-        }
+    var status = "<?=$status;?>";
+    var errorMessage = "<?=$errorMessage;?>";
+    var errorDiv = document.getElementById("errorDiv");
+    errorDiv.style.fontSize = 25+"px";
+    if(status){
+        errorDiv.innerHTML = "<p>Profile updated!</p>";
+        errorDiv.style.color = "green";
+    }
+    else {
+        errorDiv.innerHTML = errorMessage;
+        errorDiv.style.color = "red";
+    }
 
     </script>
 

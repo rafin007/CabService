@@ -10,6 +10,20 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    $employees = getEmployeeById($_GET['id']);
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        $successMessage = "";
+        $status = true;
+
+        if(!deleteEmployee($employees['id'])){
+            $status = false;
+        }
+        else{
+            $successMessage .= "<p>Employee deleted successfully!</p>";
+        }
+    }
+
 ?>
 <html>
 
@@ -72,7 +86,7 @@
 
             <td colspan="2" width="70%" valign="top" align="center">
 
-                <form class="" action="">
+                <form method="post">
 
                     <fieldset>
 
@@ -84,11 +98,17 @@
 
                                 <td colspan="3">
 
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
+                                    Name: <?=$employees['name'];?>
+                                    <hr> Username: <?=$employees['username'];?>
+                                    <hr> Email: <?=$employees['email'];?>
+                                    <hr> Gender: <?=$employees['gender'];?>
+                                    <hr> Phone: <?=$employees['phone'];?>
+                                    <hr> Join Date: <?=$employees['join_date'];?>
+                                    <hr> Rating: <?=$employees['rating'];?>
+                                    <hr> Salary: <?=$employees['salary'];?>
                                     <hr>
+                                    <div id="errorDiv"></div>
+                                    <p><input type="submit" name="" value="Confirm Delete"></p>
 
                                 </td>
 
@@ -97,12 +117,6 @@
                                     <img src="something.jpg" alt="">
 
                                 </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td align="left" colspan="3"><a href="#">Delete Profile</a></td>
 
                             </tr>
 
@@ -130,6 +144,24 @@
         </tr>
 
     </table>
+
+    <script type="text/javascript">
+
+        var status = "<?=$status;?>";
+        var successMessage = "<?=$successMessage;?>";
+        var errorDiv = document.getElementById("errorDiv");
+        errorDiv.style.fontSize = 25+"px";
+
+        if(status){
+            errorDiv.innerHTML = successMessage;
+            errorDiv.style.color = "green";
+        }
+        else {
+            errorDiv.innerHTML = "<p>Internal error, please try again!</p>";
+            errorDiv.style.color = "red";
+        }
+
+    </script>
 
 </body>
 
