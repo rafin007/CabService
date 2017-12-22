@@ -7,7 +7,9 @@
 	}
 
 	function deleteCustomerDB($id){
-
+		$sql = "DELETE FROM customer WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function updateCustomerDB($id, $name, $fullName, $username, $password, $email, $phone, $gender){

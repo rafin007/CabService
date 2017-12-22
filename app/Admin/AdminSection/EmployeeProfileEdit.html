@@ -80,24 +80,26 @@
 
 <script type="text/javascript">
 
-    var gender = "<?=$employees['gender'];?>";
+    window.onload = function(){
+        var gender = "<?=$employees['gender'];?>";
 
-    if(gender === "Male"){
-        document.getElementById("male").checked = true;
-    }
-    else if(gender === "Female"){
-        document.getElementById("female").checked = true;
-    }
-    else {
-        document.getElementById("other").checked = true;
-    }
+        if(gender === "Male"){
+            document.getElementById("male").checked = true;
+        }
+        else if(gender === "Female"){
+            document.getElementById("female").checked = true;
+        }
+        else {
+            document.getElementById("other").checked = true;
+        }
 
-    var type = "<?=$employees['type'];?>";
-    if(type === "Admin"){
-        document.getElementById("admin").selected = true;
-    }
-    else if (type === "Driver") {
-        document.getElementById("driver").selected = true;
+        var type = "<?=$employees['type'];?>";
+        if(type === "Admin"){
+            document.getElementById("admin").selected = true;
+        }
+        else if (type === "Driver") {
+            document.getElementById("driver").selected = true;
+        }
     }
 
 </script>
@@ -177,9 +179,9 @@
                                     <hr>
                                     <p>Email: <input type="email" name="email" value="<?=$employees['email'];?>"></p>
                                     <hr>
-                                    <p>Password: <input type="password" name="password" value="<?=$employees['password'];?>"> <i> e.g. emp-john</i></p>
+                                    <p>Password: <input type="password" name="password" value="<?=$employees['password'];?>"></p>
                                     <hr>
-                                    <p>Username: <input type="text" name="username" value="<?=$employees['username'];?>"></p>
+                                    <p>Username: <input type="text" name="username" value="<?=$employees['username'];?>"> <i> e.g. emp-john</i></p>
                                     <hr>
                                     <p>Employee Type:
                                         <select name="type">

@@ -18,6 +18,14 @@
         return getAllEmployeeDB();
     }
 
+    function getAllDriver(){
+        return getAllDriverDB();
+    }
+
+    function getAllAdmin(){
+        return getAllAdminDB();
+    }
+
     function getEmployeeById($id){
         return getEmployeeByIdDB($id);
     }
@@ -56,5 +64,9 @@
 
     function updateEmployeePassword($password, $id){
         return updateEmployeePasswordDB($password, $id);
+    }
+
+    function updateEmployeeProfile($id, $name, $fullname, $username, $email, $phone, $gender){
+        return updateEmployeeProfileDB($id, $name, $fullname, $username, $email, $phone, $gender);
     }
 ?>
