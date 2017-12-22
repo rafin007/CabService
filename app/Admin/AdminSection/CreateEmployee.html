@@ -139,7 +139,6 @@
 
             <td colspan="2" width="70%" valign="top" align="center">
                 <h2>Create a new Employee</h2>
-                <div id="errors"></div>
 
                     <form method="post">
 
@@ -175,6 +174,7 @@
                                 </select>
                             </p>
                             <p>Salary <input type="text" name="salary"></p>
+                            <div id="errors"></div>
                             <hr>
                             <input type="submit" name="submit" value="Create Employee">
 
@@ -202,7 +202,7 @@
 
     <script type="text/javascript">
 
-        var errorMessage = "<?=$errorMessage;?>"
+        var errorMessage = "<?=$errorMessage;?>";
         if(errorMessage!==""){
             document.getElementById("errors").style.color = "red";
             document.getElementById("errors").style.fontSize = 20+"px";

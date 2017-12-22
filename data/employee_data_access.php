@@ -13,8 +13,10 @@
 
 	}
 
-	function updateEmployeeDB($id){
-
+	function updateEmployeeDB($id, $name, $fullname, $username, $password, $email, $phone, $salary, $type, $gender){
+		$sql = "UPDATE employee SET name = '$name', employee_full_name = '$fullname', username = '$username', password = '$password', email = '$email', phone = '$phone', salary = '$salary', type = '$type', gender = '$gender' WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function getAllEmployeeDB(){
@@ -99,4 +101,9 @@
 		return $person;
 	}
 
+	function updateEmployeePasswordDB($password, $id){
+		$sql = "UPDATE employee SET password = '$password' WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
+	}
 ?>
