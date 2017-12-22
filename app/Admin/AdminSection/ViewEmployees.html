@@ -145,9 +145,9 @@
                              echo "<td>".$person['type']."</td>";
         					 echo "<td>";
                 ?>
-                                 <a href="EmployeeProfile.html">View</a> |
-                                 <a href="EmployeeProfileEdit.html">Edit</a> |
-                                 <a href="EmployeeProfileDelete.html">Delete</a>
+                                 <a href="EmployeeProfile.html?id=<?=$person['id'];?>">View</a> |
+                                 <a href="EmployeeProfileEdit.html?id=<?=$person['id'];?>">Edit</a> |
+                                 <a href="EmployeeProfileDelete.html?id=<?=$person['id'];?>">Delete</a>
                 <?php
                              echo "</td>";
     				    echo "</tr>";

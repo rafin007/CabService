@@ -10,6 +10,8 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    $employee = getEmployeeById($_GET['id']);
+
 ?>
 <html>
 
@@ -84,10 +86,14 @@
 
                                 <td colspan="3">
 
-                                    Name: Bob
-                                    <hr> Email: bob@aiub.edu
-                                    <hr> Gender: Male
-                                    <hr> Date of Birth: 19/09/1998
+                                    Name: <?=$employee['name'];?>
+                                    <hr> Username: <?=$employee['username'];?>
+                                    <hr> Email: <?=$employee['email'];?>
+                                    <hr> Gender: <?=$employee['gender'];?>
+                                    <hr> Phone: <?=$employee['phone'];?>
+                                    <hr> Join Date: <?=$employee['join_date'];?>
+                                    <hr> Rating: <?=$employee['rating'];?>
+                                    <hr> Salary: <?=$employee['salary'];?>
                                     <hr>
 
                                 </td>
@@ -120,8 +126,8 @@
                 <h2>Action</h2>
                 <hr>
                 <h3>
-                    <a href="EmployeeProfileDelete.html">Delete</a> |
-                    <a href="EmployeeProfileEdit.html">Edit</a>
+                    <a href="EmployeeProfileDelete.html?id=<?=$employee['id'];?>">Delete</a> |
+                    <a href="EmployeeProfileEdit.html?id=<?=$employee['id'];?>">Edit</a>
                 </h3>
 
             </td>

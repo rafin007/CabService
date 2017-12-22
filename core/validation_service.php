@@ -78,6 +78,7 @@
 
     function validateUsername($username){
         $status = true;
+        $key = substr($username, 0, 4);
     	if($username == ""){
     		$status = false;
     	}
@@ -86,16 +87,13 @@
             $status = false;
         }
 
-        for($i=0; $i<strlen($username); $i++){
-
-        	if(($username[$i] >= 'A' && $username[$i] <= 'Z') || ($username[$i] >= 'a' && $username[$i] <= 'z') || $username[$i] == '-'){
-        		$status = true;
-        	}
-        	else{
-        		$status = false;
-        		break;
-        	}
+        if($key === "emp-" || $key === "cus-"){
+            $status = true;
         }
+        else {
+            $status = false;
+        }
+
         return $status;
     }
 
