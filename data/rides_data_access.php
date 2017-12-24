@@ -226,4 +226,32 @@
 		return $rides;
 	}
 
+	//other
+	function getRideByCustomerIdDB($id){
+		$sql = "SELECT rides.*, customer.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE customer_id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getAmountByCustomerIdDB($id){
+		$sql = "SELECT sum(fare) FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE customer_id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+
+	function getRideByEmployeeIdDB($id){
+		$sql = "SELECT rides.*, employee.* FROM rides INNER JOIN employee ON rides.employee_id = employee.id WHERE employee_id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getAmountByEmployeeIdDB($id){
+		$sql = "SELECT sum(fare) FROM rides INNER JOIN employee ON rides.employee_id = employee.id WHERE employee_id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
 ?>
