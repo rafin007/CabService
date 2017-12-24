@@ -108,6 +108,122 @@
 
 
 	//Pending rides
-	
+	function getAllRidePendingDB(){
+		$sql = "SELECT rides.*, customer.customer_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE status = 'Pending'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getRideByCustomerNamePendingDB($name){
+		$sql = "SELECT rides.*, customer.customer_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE customer.customer_full_name LIKE '%$name%' AND status = 'Pending'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getRideByDatePendingDB($date){
+		$sql = "SELECT rides.*, customer.customer_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE date LIKE '%$date%' AND status = 'Pending'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getRideByPickupPendingDB($location){
+		$sql = "SELECT rides.*, customer.customer_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE pickup_point LIKE '%$location%' AND status = 'Pending'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getRideByDropPendingDB($location){
+		$sql = "SELECT rides.*, customer.customer_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE drop_point LIKE '%$location%' AND status = 'Pending'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getFareByRideIdDB($id){
+		$sql = "SELECT rides.*, customer.customer_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE rides_id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+
+	//Queued
+	function getQueuedRideByDriverIdDB($id){
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE employee.id = '$id' AND status = 'Queued'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function updateRideToQueuedDB($fareId, $employeeId){
+		$sql = "UPDATE rides SET status = 'Queued', employee_id = '$employeeId' WHERE rides_id = '$fareId'";
+		$result = executeSQL($sql);
+		return $result;
+	}
+
+
+	//<--------------------Insights--------------------->
+	//Fares
+	function getRideTodayDB($date){
+		$sql = "SELECT * FROM rides WHERE date = '$date' AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+	function getRideWeekDB($sevenDays, $currentDate){
+		$sql = "SELECT * FROM rides WHERE (date BETWEEN '$sevenDays' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+	function getRideMonthDB($lastMonth, $currentDate){
+		$sql = "SELECT * FROM rides WHERE (date BETWEEN '$lastMonth' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	//Revenue
+	function getRevenueTodayDB($date){
+		$sql = "SELECT sum(fare) FROM rides WHERE date = '$date' AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+	function getRevenueSevenDaysDB($sevenDays, $currentDate){
+		$sql = "SELECT sum(fare) FROM rides WHERE (date BETWEEN '$sevenDays' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+	function getRevenueMonthDB($lastMonth, $currentDate){
+		$sql = "SELECT sum(fare) FROM rides WHERE (date BETWEEN '$lastMonth' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+
+	//Mileage
+	function getMileageTodayDB($date){
+		$sql = "SELECT sum(distance) FROM rides WHERE date = '$date' AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+	function getMileageSevenDaysDB($sevenDays, $currentDate){
+		$sql = "SELECT sum(distance) FROM rides WHERE (date BETWEEN '$sevenDays' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+	function getMileageMonthDB($lastMonth, $currentDate){
+		$sql = "SELECT sum(distance) FROM rides WHERE (date BETWEEN '$lastMonth' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
 
 ?>
