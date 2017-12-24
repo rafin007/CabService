@@ -1,4 +1,5 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
 <?php
 
@@ -10,7 +11,17 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
-    $employee = getEmployeeById($_GET['id']);
+    $employees = getEmployeeById($_GET['id']);
+
+    $rides = getRideByEmployeeId($_GET['id']);
+
+    $currentDate = date('Y-m-d');
+    $joinDate = $employees['join_date'];
+
+    $seconds = strtotime($currentDate) - strtotime($joinDate);
+    $interval = floor($seconds / 86400);
+
+    $amount = getAmountByEmployeeId($_GET['id']);
 
 ?>
 <html>
@@ -86,14 +97,14 @@
 
                                 <td colspan="3">
 
-                                    Name: <?=$employee['name'];?>
-                                    <hr> Username: <?=$employee['username'];?>
-                                    <hr> Email: <?=$employee['email'];?>
-                                    <hr> Gender: <?=$employee['gender'];?>
-                                    <hr> Phone: <?=$employee['phone'];?>
-                                    <hr> Join Date: <?=$employee['join_date'];?>
-                                    <hr> Rating: <?=$employee['rating'];?>
-                                    <hr> Salary: <?=$employee['salary'];?>
+                                    Name: <?=$employees['name'];?>
+                                    <hr> Username: <?=$employees['username'];?>
+                                    <hr> Email: <?=$employees['email'];?>
+                                    <hr> Gender: <?=$employees['gender'];?>
+                                    <hr> Phone: <?=$employees['phone'];?>
+                                    <hr> Join Date: <?=$employees['join_date'];?>
+                                    <hr> Rating: <?=$employees['rating'];?>
+                                    <hr> Salary: <?=$employees['salary'];?>
                                     <hr>
 
                                 </td>
@@ -116,18 +127,18 @@
 
             <td valign="top">
 
-                <h3>Member since: 6 weeks</h3>
-                <h3>Total fares completed: 47</h3>
-                <h3>Total Earned: 43,000TK</h3>
-                <h3>Average Rating: 4.7</h3>
+                <h3>Member since: <?=$interval;?> days</h3>
+                <h3>Total fares completed: <?=$rides->num_rows;?></h3>
+                <h3>Total Earned: <?=floatval($amount['sum(fare)']);?></h3>
+                <h3>Average Rating: <?=floatval($employees['rating']);?></h3>
 
                 <hr>
 
                 <h2>Action</h2>
                 <hr>
                 <h3>
-                    <a href="EmployeeProfileDelete.html?id=<?=$employee['id'];?>">Delete</a> |
-                    <a href="EmployeeProfileEdit.html?id=<?=$employee['id'];?>">Edit</a>
+                    <a href="EmployeeProfileDelete.html?id=<?=$employees['id'];?>">Delete</a> |
+                    <a href="EmployeeProfileEdit.html?id=<?=$employees['id'];?>">Edit</a>
                 </h3>
 
             </td>
