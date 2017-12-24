@@ -1,5 +1,6 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
 <?php
 
@@ -12,6 +13,16 @@
     }
 
     $customer = getCustomerById($_GET['id']);
+
+    $rides = getRideByCustomerId($_GET['id']);
+
+    $currentDate = date('Y-m-d');
+    $joinDate = $customer['join_date'];
+
+    $seconds = strtotime($currentDate) - strtotime($joinDate);
+    $interval = floor($seconds / 86400);
+
+    $amount = getAmountByCustomerId($_GET['id']);
 
 ?>
 
@@ -118,9 +129,9 @@
 
             <td valign="top">
 
-                <h3>Member since: 6 weeks</h3>
-                <h3>Total rides: 47</h3>
-                <h3>Total spent: 43,000TK</h3>
+                <h3>Member since: <?=$interval;?> days</h3>
+                <h3>Total rides: <?=$rides->num_rows;?></h3>
+                <h3>Total spent: <?=$amount['sum(fare)'];?> TK</h3>
 
                 <hr>
 

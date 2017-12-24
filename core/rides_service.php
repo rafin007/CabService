@@ -138,4 +138,22 @@
         return getMileageMonthDB($lastMonth, $currentDate);
     }
 
+    //other
+    function getRideByCustomerId($id){
+        return getRideByCustomerIdDB($id);
+    }
+
+    function getAmountByCustomerId($id){
+        return getAmountByCustomerIdDB($id);
+    }
+
+
+    function getRideByEmployeeId($id){
+        return getRideByEmployeeIdDB($id);
+    }
+
+    function getAmountByEmployeeId($id){
+        return getAmountByEmployeeIdDB($id);
+    }
+
 ?>
