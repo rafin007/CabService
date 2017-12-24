@@ -103,4 +103,21 @@
         return updateRideToQueuedDB($fareId, $employeeId);
     }
 
+    //Insights
+    function getRideToday($date){
+        return getRideTodayDB($date);
+    }
+
+    function getRevenueToday($date){
+        return getRevenueTodayDB($date);
+    }
+
+    function getRideWeek($sevenDays, $currentDate){
+        return getRideWeekDB($sevenDays, $currentDate);
+    }
+
+    function getRevenueSevenDays($sevenDays, $currentDate){
+        return getRevenueSevenDaysDB($sevenDays, $currentDate);
+    }
+
 ?>
