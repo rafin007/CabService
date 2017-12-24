@@ -103,21 +103,39 @@
         return updateRideToQueuedDB($fareId, $employeeId);
     }
 
-    //Insights
+    //<-----------------Insights----------------->
+    //Fares
     function getRideToday($date){
         return getRideTodayDB($date);
     }
-
-    function getRevenueToday($date){
-        return getRevenueTodayDB($date);
-    }
-
     function getRideWeek($sevenDays, $currentDate){
         return getRideWeekDB($sevenDays, $currentDate);
     }
+    function getRideMonth($lastMonth, $currentDate){
+        return getRideMonthDB($lastMonth, $currentDate);
+    }
 
+
+    //Revenue
+    function getRevenueToday($date){
+        return getRevenueTodayDB($date);
+    }
     function getRevenueSevenDays($sevenDays, $currentDate){
         return getRevenueSevenDaysDB($sevenDays, $currentDate);
+    }
+    function getRevenueMonth($lastMonth, $currentDate){
+        return getRevenueMonthDB($lastMonth, $currentDate);
+    }
+
+    //Mileage
+    function getMileageToday($date){
+        return getMileageTodayDB($date);
+    }
+    function getMileageSevenDays($sevenDays, $currentDate){
+        return getMileageSevenDaysDB($sevenDays, $currentDate);
+    }
+    function getMileageMonth($lastMonth, $currentDate){
+        return getMileageMonthDB($lastMonth, $currentDate);
     }
 
 ?>
