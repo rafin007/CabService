@@ -1,4 +1,6 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
 <?php
 
@@ -7,9 +9,31 @@
         header("location: ../../Login.html");
     }
     else{
-        $employee = getEmployeeById($_SESSION['id']);        
+        $employee = getEmployeeById($_SESSION['id']);
     }
 
+
+    $day = date('d');
+    $month = date('m');
+    $year = date('Y');
+
+    $currentDate = date('Y-m-d');
+
+    $sevenDays = $year."-".$month."-".($day-7);
+
+    $fareToday = getRideToday($currentDate);
+    $revenueToday = getRevenueToday($currentDate);
+
+    $fareSevenDays = getRideWeek($sevenDays, $currentDate);
+    $revenueSevenDays = getRevenueSevenDays($sevenDays, $currentDate);
+
+    $drivers = [];
+
+    foreach($fareToday as $value){
+        echo ($value['employee_id']);
+    }
+
+    //var_dump($drivers);
 ?>
 
 <html>
@@ -87,11 +111,11 @@
                             <hr>
                             <ul>
 
-                                <h3>Total Fares(Today): 10</h3>
-                                <h3>Total Revenue(Today): 5000TK</h3>
+                                <h3>Total Fares(Today): <?=$fareToday->num_rows;?></h3>
+                                <h3>Total Revenue(Today): <?=floatval($revenueToday['sum(fare)']);?>TK</h3>
                                 <hr>
-                                <h3>Total Fares(Last 7 days): 188</h3>
-                                <h3>Revenue(Last 7 days): 22000</h3>
+                                <h3>Total Fares(Last 7 days): <?=$fareSevenDays->num_rows;?></h3>
+                                <h3>Revenue(Last 7 days): <?=floatval($revenueSevenDays['sum(fare)']);?>TK</h3>
                                 <hr>
                                 <h3>Driver with most fares(Today): <a href="#">Bob</a></h3>
                                 <h3>Driver with most fares(Last 7 days): <a href="#">Mark</a></h3>
