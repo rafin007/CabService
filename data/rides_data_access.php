@@ -165,30 +165,62 @@
 	}
 
 
-	//Insights
+	//<--------------------Insights--------------------->
+	//Fares
 	function getRideTodayDB($date){
 		$sql = "SELECT * FROM rides WHERE date = '$date' AND status = 'Completed'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;
 	}
-
-	function getRevenueTodayDB($date){
-		$sql = "SELECT sum(fare) FROM rides WHERE date = '$date' AND status = 'Completed'";
-		$result = executeSQL($sql);
-		$rides = mysqli_fetch_assoc($result);
-		return $rides;
-	}
-
 	function getRideWeekDB($sevenDays, $currentDate){
 		$sql = "SELECT * FROM rides WHERE (date BETWEEN '$sevenDays' AND '$currentDate') AND status = 'Completed'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;
 	}
+	function getRideMonthDB($lastMonth, $currentDate){
+		$sql = "SELECT * FROM rides WHERE (date BETWEEN '$lastMonth' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
 
+	//Revenue
+	function getRevenueTodayDB($date){
+		$sql = "SELECT sum(fare) FROM rides WHERE date = '$date' AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
 	function getRevenueSevenDaysDB($sevenDays, $currentDate){
 		$sql = "SELECT sum(fare) FROM rides WHERE (date BETWEEN '$sevenDays' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+	function getRevenueMonthDB($lastMonth, $currentDate){
+		$sql = "SELECT sum(fare) FROM rides WHERE (date BETWEEN '$lastMonth' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+
+	//Mileage
+	function getMileageTodayDB($date){
+		$sql = "SELECT sum(distance) FROM rides WHERE date = '$date' AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+	function getMileageSevenDaysDB($sevenDays, $currentDate){
+		$sql = "SELECT sum(distance) FROM rides WHERE (date BETWEEN '$sevenDays' AND '$currentDate') AND status = 'Completed'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+	function getMileageMonthDB($lastMonth, $currentDate){
+		$sql = "SELECT sum(distance) FROM rides WHERE (date BETWEEN '$lastMonth' AND '$currentDate') AND status = 'Completed'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $rides;
