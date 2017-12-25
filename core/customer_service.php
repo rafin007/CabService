@@ -49,4 +49,12 @@
         return checkCustomerLoginDB($username, $password);
     }
 
+    function updateCustomerPassword($password, $id){
+        return updateCustomerPasswordDB($password, $id);
+    }
+
+    function updateCustomerProfile($id, $name, $fullname, $username, $email, $phone, $gender){
+        return updateCustomerProfileDB($id, $name, $fullname, $username, $email, $phone, $gender);
+    }
+
 ?>
