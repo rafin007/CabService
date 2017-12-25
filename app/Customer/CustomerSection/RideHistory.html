@@ -1,3 +1,43 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
+
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $customer = getCustomerById($_SESSION['id']);
+    }
+
+    $fares = getRideByCustomerIdFull($_SESSION['id']);
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        if(!empty($_POST['value']) && !empty($_POST['filter'])){
+            $filter = $_POST['filter'];
+            $value = $_POST['value'];
+
+            if($filter === "date"){
+                $fares = getRideByDateCustomer($value, $_SESSION['id']);
+            }
+            else if($filter === "driver"){
+                $fares = getRideByDriverNameCustomer($value, $_SESSION['id']);
+            }
+            else if($filter === "pickup_point"){
+                $fares = getRideByPickupCustomer($value, $_SESSION['id']);
+            }
+            else if($filter === "drop_point"){
+                $fares = getRideByDropCustomer($value, $_SESSION['id']);
+            }
+            else if($filter === "any"){
+                $fares = getRideByCustomerId($_SESSION['id']);
+            }
+        }
+    }
+
+?>
 
 <html>
 
@@ -16,7 +56,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html">Bob</a> |
+                    Logged in as <a href="Profile.html"><?=$customer['name'];?></a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -58,57 +98,66 @@
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="center">
+            <td colspan="2" width="70%" valign="top" align="left">
 
-                <h2>Your Ride History since 10/10/10</h2>
-                <fieldset>
-                    <legend>
-                        <b>Rides | SEARCH</b>
-                    </legend>
-                    Filter By
-                    <select>
-                        <option>Any</option>
-                        <option>Pickup Point</option>
-                        <option>Drop Point</option>
-                        <option>Fair Amount</option>
-                    </select>
-                    <input />
-                    <input type="submit" value="Search" />
+                <h3>Your Ride History since <?=$customer['join_date'];?></h3>
+                <form method="post">
+        		    <fieldset>
+                            <legend>
+                                <b>RIDE | SEARCH</b>
+                            </legend>
+                            Filter By
+                            <select name="filter">
+                                <option value="any">Any</option>
+                                <option value="driver">Driver</option>
+                                <option value="pickup_point">Pick up point</option>
+                                <option value="drop_point">Drop Point</option>
+                                <option value="date">Date</option>
 
-                </fieldset>
+                            </select>
+                            <input type="text" name="value"/>
+                            <input type="submit" value="Search" />
+
+        		    </fieldset>
+                </form>
                 <table border="1px" cellpadding="5px" cellspacing="0" width="100%">
 
                     <tr>
-
+                        <th>Journey Type</th>
+						<th>Driver Name</th>
+						<th>Customer Name</th>
                         <th>Pickup Point</th>
                         <th>Drop Point</th>
-                        <th>Distance</th>
-                        <th>Fair</th>
                         <th>Date</th>
-
+                        <th>Distance</th>
+                        <th>Fare</th>
+                        <th>Status</th>
                     </tr>
-					<tr>
-					     <td>Banani,chairmanbari</td>
-						 <td>Uttora,13 no.sector</td>
-						 <td>250 km</td>
-						 <td>270</td>
-						 <td>16/10/2017</td>
-					<tr>
-					<tr>
-					     <td>Mirpur-1</td>
-						 <td>Uttora,9 no.sector</td>
-						 <td>350 km</td>
-						 <td>370</td>
-						 <td>20/10/2017</td>
-					<tr>
-					<tr>
-					     <td>Dhanmondi 27</td>
-						 <td>Gulshan-1</td>
-						 <td>400 km</td>
-						 <td>470</td>
-						 <td>30/10/2017</td>
-					<tr>
-					
+
+                    <?php
+                        if(!$fares->num_rows){
+                            echo "<tr>";
+                                echo "<td colspan='9' align='center'>";
+                                    echo "<h2>No results found!</h2>";
+                                echo "</td>";
+                            echo "</tr>";
+                        }
+                        foreach($fares as $fare){
+                            echo "<tr>";
+                                $employeeId = $fare['employee_id'];
+                                $customerId = $fare['customer_id'];
+            					     echo "<td>".$fare['journey_type']."</td>";
+            						 echo "<td><a href='DriverProfile.html?id=$employeeId'>".$fare['employee_full_name']."</a></td>";
+                                     echo "<td><a href='../AccountSection/Profile.html?id=$customerId'>".$fare['customer_full_name']."</a></td>";
+            						 echo "<td>".$fare['pickup_point']."</td>";
+            						 echo "<td>".$fare['drop_point']."</td>";
+            						 echo "<td>".$fare['date']."</td>";
+            						 echo "<td>".$fare['distance']." km</td>";
+            						 echo "<td>".$fare['fare']." BDT</td>";
+                                     echo "<td>".$fare['status']."</td>";
+        					echo "</tr>";
+                        }
+                    ?>
 
                 </table>
 

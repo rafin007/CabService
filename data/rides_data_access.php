@@ -3,8 +3,10 @@
 <?php
 
 	//Mandatory
-	function createRideDB($ride){
-
+	function createRideDB($id, $type, $jtype, $paddress, $daddress, $date, $time){
+		$sql = "INSERT INTO rides (rides_id, customer_id, employee_id, journey_type, pickup_point, drop_point, cab_type, date, time, distance, fare, status) VALUES (null, '$id', null, '$jtype', '$paddress', '$daddress', '$type', '$date', '$time', 3, 300, 'Pending')";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function deleteRideDB($id){
@@ -31,41 +33,78 @@
 		return $result;
 	}
 
+	function getRideByCustomerIdFullDB($id){
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE customer.id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
 	function getRideByCustomerNameDB($name){
-		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE customer.name LIKE '$name%'";
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE customer.name LIKE '%$name%'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;
 	}
 
 	function getRideByDriverNameDB($name){
-		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE employee.name LIKE '$name%'";
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE employee.name LIKE '%$name%'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;
 	}
 
 	function getRideByDateDB($date){
-		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE date LIKE '$date%'";
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE date LIKE '%$date%'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;
 	}
 
 	function getRideByPickupDB($location){
-		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE pickup_point LIKE '$location%'";
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE pickup_point LIKE '%$location%'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;
 	}
 
 	function getRideByDropDB($location){
-		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE drop_point LIKE '$location%'";
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE drop_point LIKE '%$location%'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $result;
 	}
 
+
+
+	//customer search
+	function getRideByDriverNameCustomerDB($name, $id){
+		$sql = "SELECT rides.*, customer.*, employee.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE employee.name LIKE '%$name%' AND customer_id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getRideByDateCustomerDB($date, $id){
+		$sql = "SELECT rides.*, customer.*, employee.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE date LIKE '%$date%' AND customer.id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getRideByPickupCustomerDB($location, $id){
+		$sql = "SELECT rides.*, customer.*, employee.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE pickup_point LIKE '%$location%' AND customer.id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getRideByDropCustomerDB($location, $id){
+		$sql = "SELECT rides.*, customer.*, employee.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE drop_point LIKE '%$location%' AND customer.id = '$id'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
 
 
 

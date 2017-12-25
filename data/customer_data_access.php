@@ -91,4 +91,16 @@
 		return $status;
 	}
 
+	function updateCustomerPasswordDB($password, $id){
+		$sql = "UPDATE customer SET password = '$password' WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
+	}
+
+	function updateCustomerProfileDB($id, $name, $fullname, $username, $email, $phone, $gender){
+		$sql = "UPDATE customer SET name = '$name', customer_full_name = '$fullname', username = '$username', email = '$email', phone = '$phone', gender = '$gender' WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
+	}
+
 ?>

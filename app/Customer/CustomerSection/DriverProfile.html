@@ -1,4 +1,4 @@
-<?php require_once (realpath(dirname(__FILE__)."/../../../core/validation_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
@@ -12,12 +12,14 @@
         $customer = getCustomerById($_SESSION['id']);
     }
 
+    $employees = getEmployeeById($_GET['id']);
+
 ?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW PROFILE</title>
+    <title>VIEW DRIVER PROFILE</title>
 </head>
 
 <body>
@@ -30,7 +32,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html"><?=$customer['name'];?></a> |
+                    Logged in as <a href="../AccountSection/Profile.html"><?=$customer['name'];?></a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -46,39 +48,39 @@
                 <hr>
                 <ul>
 
-                    <li><a href="Dashboard.html">Dashboard</a></li>
-                    <li><a href="Profile.html">View Profile</a></li>
-                    <li><a href="EditProfile.html">Edit Profile</a></li>
-                    <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
-                    <li><a href="ChangePassword.html">Change Password</a></li>
+                    <li><a href="../AccountSection/Dashboard.html">Dashboard</a></li>
+                    <li><a href="../AccountSection/Profile.html">View Profile</a></li>
+                    <li><a href="../AccountSection/EditProfile.html">Edit Profile</a></li>
+                    <li><a href="../AccountSection/ProfilePicture.html">Change Profile Picture</a></li>
+                    <li><a href="../AccountSection/ChangePassword.html">Change Password</a></li>
                     <li><a href="../../Home.html">Logout</a></li>
 
                 </ul>
 
-                <h2>Customer Section</h2>
+                <h2>Admin Section</h2>
                 <hr>
                 <ul>
 
-                    <li><a href="../CustomerSection/BookRide.html">Book a Ride</a></li>
-                    <li><a href="../CustomerSection/RideHistory.html">Ride History</a></li>
-                    <li><a href="../CustomerSection/DestinationCoverage.html">Destination Coverage</a></li>
-                    <li><a href="../CustomerSection/CancelRide.html">Cancel Booked Ride</a></li>
-                    <li><a href="../CustomerSection/Invoice.html">View Invoices</a></li>
-                    <li><a href="../CustomerSection/Issue.html">Report an Issue</a></li>
-                    <li><a href="../CustomerSection/Review.html">Write a Review</a></li>
+                    <li><a href="../AdminSection/Revenue.html">View Revenue</a></li>
+                    <li><a href="../AdminSection/CreateEmployee.html">Create Employee</a></li>
+                    <li><a href="../AdminSection/ViewCustomers.html">View Customers</a></li>
+                    <li><a href="../AdminSection/ViewEmployees.html">View Employees</a></li>
+                    <li><a href="../AdminSection/ViewFares.html">View all Fares</a></li>
+                    <li><a href="../AdminSection/Insights.html">Insights</a></li>
+                    <li><a href="../AdminSection/ComplainBook.html">Complain Book</a></li>
 
 
                 </ul>
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="center">
+            <td width="60%" valign="top" align="center">
 
                 <form class="" action="">
 
                     <fieldset>
 
-                        <legend>PROFILE</legend>
+                        <legend>EMPLOYEE PROFILE</legend>
 
                         <table cellspacing="50px">
 
@@ -86,11 +88,13 @@
 
                                 <td colspan="3">
 
-                                    Name: <?=$customer['name'];?>
-                                    <hr> Username: <?=$customer['username'];?>
-                                    <hr> Email: <?=$customer['email'];?>
-                                    <hr> Gender: <?=$customer['gender'];?>
-                                    <hr> Phone: <?=$customer['phone'];?>
+                                    Name: <?=$employees['name'];?>
+                                    <hr> Username: <?=$employees['username'];?>
+                                    <hr> Email: <?=$employees['email'];?>
+                                    <hr> Gender: <?=$employees['gender'];?>
+                                    <hr> Phone: <?=$employees['phone'];?>
+                                    <hr> Join Date: <?=$employees['join_date'];?>
+                                    <hr> Rating: <?=$employees['rating'];?>
                                     <hr>
 
                                 </td>
@@ -98,19 +102,10 @@
                                 <td>
 
                                     <img src="person.jpg" width="200px">
-                                    <br>
-                                    <a href="ProfilePicture.html">Change</a>
 
                                 </td>
 
                             </tr>
-
-                            <tr>
-
-                                <td align="left" colspan="3"><a href="EditProfile.html">Edit Profile</a></td>
-
-                            </tr>
-
                         </table>
 
 

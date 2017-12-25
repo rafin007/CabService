@@ -2,8 +2,8 @@
 <?php
 
     //Mandatory
-    function createRide($ride){
-        return createRideDB($ride);
+    function createRide($id, $type, $jtype, $paddress, $daddress, $date, $time){
+        return createRideDB($id, $type, $jtype, $paddress, $daddress, $date, $time);
     }
 
     function deleteRide($id){
@@ -19,7 +19,7 @@
         return getRideByIdDB($id);
     }
 
-
+    //admin search
     function getAllRide(){
         return getAllRideDB();
     }
@@ -48,6 +48,23 @@
         return getRideByDriverIdDB($id);
     }
 
+
+    //Customer search
+    function getRideByDriverNameCustomer($name, $id){
+        return getRideByDriverNameCustomerDB($name, $id);
+    }
+
+    function getRideByDateCustomer($date, $id){
+        return getRideByDateCustomerDB($date, $id);
+    }
+
+    function getRideByPickupCustomer($location, $id){
+        return getRideByPickupCustomerDB($location, $id);
+    }
+
+    function getRideByDropCustomer($location, $id){
+        return getRideByDropCustomerDB($location, $id);
+    }
 
 
     //Driver's completed
@@ -139,6 +156,10 @@
     }
 
     //other
+    function getRideByCustomerIdFull($id){
+        return getRideByCustomerIdFullDB($id);
+    }
+
     function getRideByCustomerId($id){
         return getRideByCustomerIdDB($id);
     }
