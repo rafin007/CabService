@@ -1,9 +1,47 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
+<?php
+
+    session_start();
+    if(!$_SESSION['id']){
+        header("location: ../../Login.html");
+    }
+    else{
+        $customer = getCustomerById($_SESSION['id']);
+    }
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        $status = true;
+        $errorMessage = "";
+
+        $jtype = $_POST['jtype'];
+        $paddress = $_POST['paddress'];
+        $daddress = $_POST['daddress'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $type = $_POST['ctype'];
+
+        if($paddress=="" || $daddress=="" || $date=="" || $time==""){
+            $status = false;
+            $errorMessage .= "<p>Please fill out all the fields!</p>";
+        }
+
+        if($status){
+            if(!createRide($_SESSION['id'], $type, $jtype, $paddress, $daddress, $date, $time)){
+                $status = false;
+            }
+        }
+
+    }
+
+?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW PROFILE</title>
+    <title>BOOK RIDE</title>
 </head>
 
 <body>
@@ -16,7 +54,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html">Bob</a> |
+                    Logged in as <a href="Profile.html"><?=$customer['name'];?></a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -67,27 +105,31 @@
                             <h2>Fill out the form below to book your ride:</h2>
 
                         </td>
-                        <td align="right" valign="top">
-
-                            <h2>Your journey date's weather:</h2>
-
-                        </td>
                     </tr>
                     <tr>
 
                         <td align="center" valign="top">
 
-                            <form class="" action="">
+                            <form method="post">
 
                                 <fieldset>
 
                                     <legend>Book A Ride</legend>
 
-                                    <p>Journey Type: <input type="text" name="jtype" value=""></p>
-                                    <p>Pickup Address: <input type="text" name="paddress" value=""></p>
-                                    <p>Drop Address: <input type="text" name="daddress" value=""></p>
-                                    <p>Pickup Date : <input type="text" name="date" value=""></p>
-                                    <p>Pickup Time: <input type="text" name="time" value=""></p>
+                                    <p>Journey Type:
+
+                                        <select name="jtype">
+
+                                            <option value="One way">One way</option>
+                                            <option value="Two way">Two way</option>
+
+                                        </select>
+
+                                    </p>
+                                    <p>Pickup Address: <input type="text" name="paddress" value="" id="paddress"></p>
+                                    <p>Drop Address: <input type="text" name="daddress" value="" id="daddress"></p>
+                                    <p>Pickup Date : <input type="text" name="date" value="" id="date"></p>
+                                    <p>Pickup Time: <input type="text" name="time" value="" id="time"></p>
                                     <p>
                                         Cab Type:
                                         <select class="" name="ctype">
@@ -102,14 +144,14 @@
                                         </select>
 
                                     </p>
+                                    <input type="submit" name="" value="Book Ride">
                                     <hr>
-                                    <input type="submit" name="" value="Submit">
+                                    <div id="errorDiv"></div>
+                                <h3>Distance: 0km</h3>
+                                <h3>Esitmated Fair: 0TK</h3>
+                            </fieldset>
 
-                                </fieldset>
-
-                            </form>
-                            <h3>Distance: 0km</h3>
-                            <h3>Esitmated Fair: 0TK</h3>
+                        </form>
 
                         </td>
 
@@ -133,6 +175,28 @@
         </tr>
 
     </table>
+
+    <script type="text/javascript">
+
+        var status = "<?=$status;?>";
+        var errorMessage = "<?=$errorMessage;?>";
+        var errorDiv = document.getElementById("errorDiv");
+        errorDiv.style.fontSize = 25+"px";
+
+        if(status){
+            errorDiv.innerHTML = "<p>Ride Booked!</p>";
+            errorDiv.style.color = "green";
+        }
+        else {
+            errorDiv.innerHTML = errorMessage;
+            errorDiv.style.color = "red";
+            document.getElementById("paddress").value = "<?=$paddress;?>";
+            document.getElementById("daddress").value = "<?=$daddress;?>";
+            document.getElementById("date").value = "<?=$date;?>";
+            document.getElementById("time").value = "<?=$time;?>";
+        }
+
+    </script>
 
 </body>
 
