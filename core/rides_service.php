@@ -177,4 +177,17 @@
         return getAmountByEmployeeIdDB($id);
     }
 
+    function getCustomerRidePending($id){
+        return getCustomerRidePendingDB($id);
+    }
+
+    function getPendingRideById($id){
+        return getPendingRideByIdDB($id);
+    }
+
+    function getCustomerQueuedRide($id){
+        return getCustomerQueuedRideDB($id);
+    }
+
+
 ?>

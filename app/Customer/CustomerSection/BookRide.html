@@ -37,11 +37,23 @@
     }
 
 ?>
+
+<script type="text/javascript">
+
+    function pickDate(){
+        $( "#date" ).datepicker({
+              dateFormat: "yy-mm-dd"
+        });
+    }
+
+</script>
+
 <html>
 
 <head>
     <meta charset="utf-8">
     <title>BOOK RIDE</title>
+    <link rel="stylesheet" href="../../jquery-ui/jquery-ui.css">
 </head>
 
 <body>
@@ -85,7 +97,6 @@
 
                     <li><a href="BookRide.html">Book a Ride</a></li>
                     <li><a href="RideHistory.html">Ride History</a></li>
-                    <li><a href="DestinationCoverage.html">Destination Coverage</a></li>
                     <li><a href="CancelRide.html">Cancel Booked Ride</a></li>
                     <li><a href="Invoice.html">View Invoices</a></li>
                     <li><a href="Issue.html">Report an Issue</a></li>
@@ -128,8 +139,8 @@
                                     </p>
                                     <p>Pickup Address: <input type="text" name="paddress" value="" id="paddress"></p>
                                     <p>Drop Address: <input type="text" name="daddress" value="" id="daddress"></p>
-                                    <p>Pickup Date : <input type="text" name="date" value="" id="date"></p>
-                                    <p>Pickup Time: <input type="text" name="time" value="" id="time"></p>
+                                    <p>Pickup Date : <input type="text" name="date" value="" id="date" onclick="pickDate()"><i> e.g. yyyy-mm-dd</i></p>
+                                    <p>Pickup Time: <input type="text" name="time" value="" id="time"><i> e.g. hh:mm:ss</i></p>
                                     <p>
                                         Cab Type:
                                         <select class="" name="ctype">
@@ -175,8 +186,11 @@
         </tr>
 
     </table>
+    <script src="../../jquery-ui/external/jquery/jquery.js" type="text/javascript"></script>
+    <script src="../../jquery-ui/jquery-ui.js"></script>
 
     <script type="text/javascript">
+
 
         var status = "<?=$status;?>";
         var errorMessage = "<?=$errorMessage;?>";

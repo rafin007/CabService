@@ -10,19 +10,22 @@
 	}
 
 	function deleteRideDB($id){
-
+		$sql = "DELETE FROM rides WHERE rides_id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function updateRideDB($id){
-
+		$sql = "UPDATE rides SET status = 'Completed' WHERE rides_id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 
 	function getRideByIdDB($id){
-		$sql = "SELECT rides.journey_type, rides.pickup_point, rides.drop_point, rides.distance, rides.fare, rides.date, rides.status, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE rides_id = '$id'";
+		$sql = "SELECT rides.*, customer.*, employee.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE rides_id = '$id'";
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
-		var_dump($rides);
 		return $rides;
 	}
 
@@ -292,5 +295,26 @@
 		$result = executeSQL($sql);
 		$rides = mysqli_fetch_assoc($result);
 		return $rides;
+	}
+
+	function getCustomerRidePendingDB($id){
+		$sql = "SELECT rides.*, customer.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE customer.id = '$id' AND status = 'Pending'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
+	function getPendingRideByIdDB($id){
+		$sql = "SELECT rides.*, customer.* FROM rides INNER JOIN customer ON rides.customer_id = customer.id WHERE rides_id = '$id' AND status = 'Pending'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $rides;
+	}
+
+	function getCustomerQueuedRideDB($id){
+		$sql = "SELECT rides.*, customer.customer_full_name, employee.employee_full_name FROM rides INNER JOIN customer ON rides.customer_id = customer.id INNER JOIN employee ON rides.employee_id = employee.id WHERE customer.id = '$id' AND status = 'Queued'";
+		$result = executeSQL($sql);
+		$rides = mysqli_fetch_assoc($result);
+		return $result;
 	}
 ?>
