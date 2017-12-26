@@ -57,4 +57,12 @@
         return updateCustomerProfileDB($id, $name, $fullname, $username, $email, $phone, $gender);
     }
 
+    function rateDriver($id, $rating){
+        return rateDriverDB($id, $rating);
+    }
+
+    function reportIssue($id, $title, $comment){
+        return reportIssueDB($id, $title, $comment);
+    }
+
 ?>

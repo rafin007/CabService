@@ -1,3 +1,4 @@
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/customer_service.php")); ?>
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
@@ -11,25 +12,39 @@
         $customer = getCustomerById($_SESSION['id']);
     }
 
+    $fare = getRideById($_GET['id']);
+
     if($_SERVER['REQUEST_METHOD']=="POST"){
         $status = true;
         $errorMessage = "";
+        $rating = $_POST['rating'];
 
-        $title = $_POST['title'];
-        $comment = $_POST['comment'];
-
-        if(!reportIssue($_SESSION['id'], $title, $comment)){
+        if(!rateDriver($fare['employee_id'], $rating)){
             $status = false;
-            $errorMessage .= "<p>Sorry, please try again later!</p>";
+            $errorMessage .= "<p>Internal error while rating driver!</p>";
+        }
+
+        if(!updateRide($_GET['id'])){
+            $status = false;
+            $errorMessage .= "<p>Internal error while marking ride as complete!</p>";
         }
     }
 
 ?>
+
+<script type="text/javascript">
+
+    window.onload = function(){
+        document.getElementById("rate").style.color = "blue";
+    }
+
+</script>
+
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>Report an Issue</title>
+    <title>Mark Ride Complete</title>
 </head>
 
 <body>
@@ -85,24 +100,53 @@
 
             <td colspan="2" width="70%" valign="top" align="center">
 
-                <h2>Please tell us, what's bothering you?</h2>
                 <form method="post">
 
                     <fieldset>
 
-                        <legend>Report an Issue</legend>
+                        <legend>MARK RIDE AS COMPLETE</legend>
 
-                        <p>Title: <input type="text" name="title"></p>
-                        <p>Comment: </p>
+                        <table cellspacing="50px">
 
-                        <textarea name="comment" rows="13" cols="80"></textarea>
-                        <div id="notification"></div>
-                        <hr>
-                        <input type="submit" name="" value="Submit Complain">
+                            <tr>
+
+                                <td colspan="3">
+
+                                    Customer Name: <?=$fare['customer_full_name'];?>
+                                    <hr> Driver Name: <?=$fare['employee_full_name'];?>
+                                    <hr> Journey Type: <?=$fare['journey_type'];?>
+                                    <hr> Pickup Point: <?=$fare['pickup_point'];?>
+                                    <hr> Drop Point: <?=$fare['drop_point'];?>
+                                    <hr> Date: <?=$fare['date'];?>
+                                    <hr> Time: <?=$fare['time'];?>
+                                    <hr> Distance: <?=$fare['distance'];?> km
+                                    <hr> Fare: <?=$fare['fare'];?>
+                                    <p id="rate">
+                                        PLEASE GIVE THIS DRIVER A RATING:
+                                        <select name="rating" id="rating">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </p>
+                                    <hr>
+                                    <div id="notification"></div>
+                                    <input type="submit" value="Submit" id="complete">
+
+                                </td>
+
+
+                            </tr>
+                        </table>
+
 
                     </fieldset>
 
                 </form>
+
 
             </td>
 
@@ -128,9 +172,10 @@
         var status = "<?=$status;?>";
         if(status){
             var notification = document.getElementById("notification");
-            notification.innerHTML = "<p>Thank you for your patience, we'll get back to you soon!</p>";
+            notification.innerHTML = "<p>Marked as completed!</p>";
             notification.style.color = "green";
             notification.style.fontSize = 20+"px";
+            document.getElementById("complete").disabled = true;
         }
         else {
             var notification = document.getElementById("notification");
