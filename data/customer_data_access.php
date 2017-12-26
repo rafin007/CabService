@@ -103,4 +103,16 @@
 		return $result;
 	}
 
+	function rateDriverDB($id, $rating){
+		$sql = "UPDATE employee SET rating = '$rating' WHERE id = '$id'";
+		$result = executeSQL($sql);
+		return $result;
+	}
+
+	function reportIssueDB($id, $title, $comment){
+		$sql = "INSERT INTO issue (issue_id, customer_id, title, comment) VALUES (null, '$id', '$title', '$comment')";
+		$result = executeSQL($sql);
+		return $result;
+	}
+
 ?>

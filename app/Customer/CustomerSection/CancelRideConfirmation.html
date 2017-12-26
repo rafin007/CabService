@@ -12,12 +12,23 @@
         $customer = getCustomerById($_SESSION['id']);
     }
 
+    $fare = getPendingRideById($_GET['id']);
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        $status = true;
+        $errorMessage = "";
+        if(!deleteRide($_GET['id'])){
+            $status = false;
+            $errorMessage .= "<p>Internal Error!</p>";
+        }
+    }
+
 ?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW PROFILE</title>
+    <title>CANCEL RIDE CONFIRMATION</title>
 </head>
 
 <body>
@@ -30,7 +41,7 @@
 
                 <div align="right">
 
-                    Logged in as <a href="Profile.html"><?=$customer['name'];?></a> |
+                    Logged in as <a href="../AccountSection/Profile.html"><?=$customer['name'];?></a> |
                     <a href="../../Home.html">Logout</a>
 
                 </div>
@@ -61,7 +72,6 @@
 
                     <li><a href="BookRide.html">Book a Ride</a></li>
                     <li><a href="RideHistory.html">Ride History</a></li>
-                    <li><a href="DestinationCoverage.html">Destination Coverage</a></li>
                     <li><a href="CancelRide.html">Cancel Booked Ride</a></li>
                     <li><a href="Invoice.html">View Invoices</a></li>
                     <li><a href="Issue.html">Report an Issue</a></li>
@@ -72,9 +82,42 @@
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="center">
+            <td width="60%" valign="top" align="center">
 
-                <h2>The destination we cover currently..</h2>
+                <form method="post">
+
+                    <fieldset>
+
+                        <legend>CANCEL RIDE</legend>
+
+                        <table cellspacing="50px">
+
+                            <tr>
+
+                                <td colspan="3">
+
+                                    Name: <?=$fare['customer_full_name'];?>
+                                    <hr> Journey Type: <?=$fare['journey_type'];?>
+                                    <hr> Pickup Point: <?=$fare['pickup_point'];?>
+                                    <hr> Drop Point: <?=$fare['drop_point'];?>
+                                    <hr> Date: <?=$fare['date'];?>
+                                    <hr> Time: <?=$fare['time'];?>
+                                    <hr> Distance: <?=$fare['distance'];?> km
+                                    <hr> Estimated Fare: <?=$fare['fare'];?>
+                                    <hr>
+                                    <div id="notification"></div>
+                                    <input type="submit" value="Confirm Cancel" id="cancel">
+
+                                </td>
+
+
+                            </tr>
+                        </table>
+
+
+                    </fieldset>
+
+                </form>
 
             </td>
 
@@ -93,6 +136,26 @@
         </tr>
 
     </table>
+
+    <script type="text/javascript">
+
+        var errorMessage = "<?=$errorMessage;?>";
+        var status = "<?=$status;?>";
+        if(status){
+            var notification = document.getElementById("notification");
+            notification.innerHTML = "<p>Ride canceled successfully!</p>";
+            notification.style.color = "green";
+            notification.style.fontSize = 20+"px";
+            document.getElementById("cancel").disabled = true;
+        }
+        else {
+            var notification = document.getElementById("notification");
+            notification.innerHTML = errorMessage;
+            notification.style.color = "red";
+            notification.style.fontSize = 20+"px";
+        }
+
+    </script>
 
 </body>
 

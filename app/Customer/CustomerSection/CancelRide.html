@@ -12,12 +12,14 @@
         $customer = getCustomerById($_SESSION['id']);
     }
 
+    $fares = getCustomerRidePending($_SESSION['id']);
+
 ?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW PROFILE</title>
+    <title>CANCEL RIDE</title>
 </head>
 
 <body>
@@ -61,7 +63,6 @@
 
                     <li><a href="BookRide.html">Book a Ride</a></li>
                     <li><a href="RideHistory.html">Ride History</a></li>
-                    <li><a href="DestinationCoverage.html">Destination Coverage</a></li>
                     <li><a href="CancelRide.html">Cancel Booked Ride</a></li>
                     <li><a href="Invoice.html">View Invoices</a></li>
                     <li><a href="Issue.html">Report an Issue</a></li>
@@ -75,7 +76,40 @@
             <td colspan="2" width="70%" valign="top" align="center">
 
                 <h2>Your pending rides, click to cancel</h2>
-                <p>Conditions apply, see our <a href="#">Terms and Conditions</a></p>
+
+                <table width="100%" border="1px" cellspacing="0" cellpadding="5px">
+                    <tr>
+                        <th>Journey Type</th>
+                        <th>Pickup Point</th>
+                        <th>Drop Point</th>
+                        <th>Date</th>
+                        <th>Distance</th>
+                        <th>Fare</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php
+                        if(!$fares->num_rows){
+                            echo "<tr>";
+                                echo "<td colspan='9' align='center'>";
+                                    echo "<h2>No results found!</h2>";
+                                echo "</td>";
+                            echo "</tr>";
+                        }
+                        foreach($fares as $fare){
+                            echo "<tr>";
+                                $customerId = $fare['customer_id'];
+                                $rideId = $fare['rides_id'];
+            					     echo "<td>".$fare['journey_type']."</td>";
+            						 echo "<td>".$fare['pickup_point']."</td>";
+            						 echo "<td>".$fare['drop_point']."</td>";
+            						 echo "<td>".$fare['date']."</td>";
+            						 echo "<td>".$fare['distance']." km</td>";
+            						 echo "<td>".$fare['fare']." BDT</td>";
+                                     echo "<td><a href='CancelRideConfirmation.html?id=$rideId'>Cancel</a></td>";
+        					echo "</tr>";
+                        }
+                    ?>
+                </table>
 
             </td>
 
