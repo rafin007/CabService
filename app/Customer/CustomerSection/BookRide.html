@@ -23,13 +23,16 @@
         $time = $_POST['time'];
         $type = $_POST['ctype'];
 
-        if($paddress=="" || $daddress=="" || $date=="" || $time==""){
+        $distance = $_POST['distance'];
+        $fare = $_POST['fare'];
+
+        if($paddress=="" || $daddress=="" || $date=="" || $time=="" || $distance=="" || $fare==""){
             $status = false;
             $errorMessage .= "<p>Please fill out all the fields!</p>";
         }
 
         if($status){
-            if(!createRide($_SESSION['id'], $type, $jtype, $paddress, $daddress, $date, $time)){
+            if(!createRide($_SESSION['id'], $type, $jtype, $paddress, $daddress, $date, $time, $fare, $distance)){
                 $status = false;
             }
         }
@@ -38,15 +41,14 @@
 
 ?>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 
-    function pickDate(){
-        $( "#date" ).datepicker({
-              dateFormat: "yy-mm-dd"
-        });
+    window.onload = function(){
+        document.getElementById("distance").style.visibility = "hidden";
+        document.getElementById("fare").style.visibility = "hidden";
     }
 
-</script> -->
+</script>
 
 <html>
 
@@ -159,8 +161,11 @@
                                     <input type="submit" name="" value="Book Ride">
                                     <hr>
                                     <div id="errorDiv"></div>
-                                <h3>Distance: <span id="fare"></span></h3>
-                                <h3>Esitmated Fair: TK</h3>
+                                <h3>Distance: <span id="tdis"></span> KM</h3>
+                                <h3>Esitmated Fare:  <span id="tfare"></span> TK</h3>
+
+                                <input type="text" id="distance" name="distance" readonly>
+                                <input type="text" name="fare" id="fare" readonly>
                             </fieldset>
 
                         </form>
@@ -232,7 +237,12 @@
                 success: function(result) {
                     var res = result.rows[0].elements[0].distance.text;
                     var km = res.split(" ");
-                    document.getElementById("fare").innerText = Math.round(km[0]*1.60934*100)/100+" KM";
+                    var distance = Math.round(km[0]*1.60934*100)/100;
+                    document.getElementById("distance").value = distance;
+                    document.getElementById("fare").value = Math.round(distance*30);
+
+                    document.getElementById("tdis").innerText = distance;
+                    document.getElementById("tfare").innerText = Math.round(distance*30);
                 }
             });
         });

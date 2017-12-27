@@ -53,6 +53,10 @@
             $status = false;
             $errorMessage .= "Username is not valid!<br>";
         }
+        if(uniqueEmployeeUsername($username)->num_rows > 0){
+            $status = false;
+            $errorMessage .= "Sorry, this username is already taken!<br>";
+        }
         if(!checkPassword($password)){
             $status = false;
             $errorMessage .= "Password cannot be empty!<br>";

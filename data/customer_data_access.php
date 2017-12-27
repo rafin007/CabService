@@ -2,8 +2,11 @@
 
 <?php
 
-	function createCustomerDB($customer){
-
+	function createCustomerDB($name, $fullname, $username, $password, $email, $phone, $gender){
+		$date = date('Y-m-d');
+		$sql = "INSERT INTO customer (id, name, customer_full_name, username, password, email, phone, gender, join_date, review) VALUES (null, '$name', '$fullname', '$username', '$password', '$email', '$phone', '$gender', '$date', 0)";
+		$result = executeSQL($sql);
+		return $result;
 	}
 
 	function deleteCustomerDB($id){
@@ -111,6 +114,12 @@
 
 	function reportIssueDB($id, $title, $comment){
 		$sql = "INSERT INTO issue (issue_id, customer_id, title, comment) VALUES (null, '$id', '$title', '$comment')";
+		$result = executeSQL($sql);
+		return $result;
+	}
+
+	function uniqueCustomerUsernameDB($username){
+		$sql = "SELECT * FROM customer WHERE username = '$username'";
 		$result = executeSQL($sql);
 		return $result;
 	}

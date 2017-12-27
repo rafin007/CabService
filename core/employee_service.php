@@ -69,4 +69,8 @@
     function updateEmployeeProfile($id, $name, $fullname, $username, $email, $phone, $gender){
         return updateEmployeeProfileDB($id, $name, $fullname, $username, $email, $phone, $gender);
     }
+
+    function uniqueEmployeeUsername($username){
+        return uniqueEmployeeUsernameDB($username);
+    }
 ?>
