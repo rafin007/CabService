@@ -38,7 +38,7 @@
 
 ?>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
     function pickDate(){
         $( "#date" ).datepicker({
@@ -46,7 +46,7 @@
         });
     }
 
-</script>
+</script> -->
 
 <html>
 
@@ -155,11 +155,12 @@
                                         </select>
 
                                     </p>
+                                    <button type="button" id="fareButton">Show Estimated Fare</button>
                                     <input type="submit" name="" value="Book Ride">
                                     <hr>
                                     <div id="errorDiv"></div>
-                                <h3>Distance: 0km</h3>
-                                <h3>Esitmated Fair: 0TK</h3>
+                                <h3>Distance: <span id="fare"></span></h3>
+                                <h3>Esitmated Fair: TK</h3>
                             </fieldset>
 
                         </form>
@@ -188,6 +189,68 @@
     </table>
     <script src="../../jquery-ui/external/jquery/jquery.js" type="text/javascript"></script>
     <script src="../../jquery-ui/jquery-ui.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgyWJzC2OPDMmnGIfQcAU2ICHAL-hTjFQ&libraries=places&callback=initAutocomplete" async defer></script>
+    <script type="text/javascript">
+    var autocomplete1;
+    var autocomplete2;
+    var pickup;
+    var dropoff;
+    function initAutocomplete() {
+        autocomplete1 = new google.maps.places.Autocomplete(document.getElementById("paddress"));
+        autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("daddress"));
+        autocomplete1.addListener("place_changed", function() {
+            var place = autocomplete1.getPlace();
+            if (place.geometry) {
+                pickup = place.formatted_address;
+                console.log(place.formatted_address);
+            }
+        });
+        autocomplete2.addListener("place_changed", function() {
+            var place = autocomplete2.getPlace();
+            if (place.geometry) {
+                dropoff = place.formatted_address;
+                console.log(place.formatted_address);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $("#fareButton").on("click", function() {
+            //console.log("Clicked!");
+            //console.log(pickup);
+
+            $.ajax({
+                url: "http://localhost/CabService/maps.php",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    pickup: pickup,
+                    dropoff: dropoff
+                },
+                success: function(result) {
+                    var res = result.rows[0].elements[0].distance.text;
+                    var km = res.split(" ");
+                    document.getElementById("fare").innerText = Math.round(km[0]*1.60934*100)/100+" KM";
+                }
+            });
+        });
+    });
+
+        // $.ajax({
+        //     url: "https://maps.googleapis.com/maps/api/directions/json?origin=banani&destination=uttora&key=AIzaSyDgyWJzC2OPDMmnGIfQcAU2ICHAL-hTjFQ",
+        //     type: "GET",
+        //     dataType: "json",
+        //     success: function(data){
+        //         $.each(data["geocoded_waypoints"][0]["geocoder_status"], function(key, value){
+        //             alert(key);
+        //         })
+        //     }
+        //
+        // })
+
+    </script>
 
     <script type="text/javascript">
 
