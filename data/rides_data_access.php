@@ -3,8 +3,8 @@
 <?php
 
 	//Mandatory
-	function createRideDB($id, $type, $jtype, $paddress, $daddress, $date, $time){
-		$sql = "INSERT INTO rides (rides_id, customer_id, employee_id, journey_type, pickup_point, drop_point, cab_type, date, time, distance, fare, status) VALUES (null, '$id', null, '$jtype', '$paddress', '$daddress', '$type', '$date', '$time', 3, 300, 'Pending')";
+	function createRideDB($id, $type, $jtype, $paddress, $daddress, $date, $time, $fare, $distance){
+		$sql = "INSERT INTO rides (rides_id, customer_id, employee_id, journey_type, pickup_point, drop_point, cab_type, date, time, distance, fare, status) VALUES (null, '$id', null, '$jtype', '$paddress', '$daddress', '$type', '$date', '$time', '$distance', '$fare', 'Pending')";
 		$result = executeSQL($sql);
 		return $result;
 	}

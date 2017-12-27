@@ -2,8 +2,8 @@
 <?php
 
     //Mandatory
-    function createRide($id, $type, $jtype, $paddress, $daddress, $date, $time){
-        return createRideDB($id, $type, $jtype, $paddress, $daddress, $date, $time);
+    function createRide($id, $type, $jtype, $paddress, $daddress, $date, $time, $fare, $distance){
+        return createRideDB($id, $type, $jtype, $paddress, $daddress, $date, $time, $fare, $distance);
     }
 
     function deleteRide($id){

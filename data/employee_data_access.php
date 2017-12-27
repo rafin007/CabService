@@ -128,4 +128,10 @@
 		$result = executeSQL($sql);
 		return $result;
 	}
+
+	function uniqueEmployeeUsernameDB($username){
+		$sql = "SELECT * FROM employee WHERE username = '$username'";
+		$result = executeSQL($sql);
+		return $result;
+	}
 ?>

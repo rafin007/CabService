@@ -1,8 +1,8 @@
 <?php require_once (realpath(dirname(__FILE__) ."/../data/customer_data_access.php")); ?>
 <?php
 
-    function createCustomer($customer){
-        return createCustomerDB($customer);
+    function createCustomer($name, $fullname, $username, $password, $email, $phone, $gender){
+        return createCustomerDB($name, $fullname, $username, $password, $email, $phone, $gender);
     }
 
     function deleteCustomer($id){
@@ -63,6 +63,10 @@
 
     function reportIssue($id, $title, $comment){
         return reportIssueDB($id, $title, $comment);
+    }
+
+    function uniqueCustomerUsername($username){
+        return uniqueCustomerUsernameDB($username);
     }
 
 ?>

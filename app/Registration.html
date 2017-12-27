@@ -1,9 +1,75 @@
+<?php require_once (realpath(dirname(__FILE__) ."/../core/customer_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__) ."/../core/validation_service.php")); ?>
+
+<?php
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        $status = true;
+        $errorMessage = "";
+
+        $name = $_POST['name'];
+        $fullname = $_POST['fullname'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $password = $_POST['password'];
+        $confirmpassword = $_POST['confirmpassword'];
+        if(isset($_POST['gender'])){
+            $gender = $_POST['gender'];
+        }
+        else{
+            $errorMessage .= "Must select a gender<br>";
+            $gender = "";
+        }
+
+        if(!validateName($name)){
+            $status = false;
+            $errorMessage .= "Name is not valid!<br>";
+        }
+        if(!validateFullName($fullname)){
+            $status = false;
+            $errorMessage .= "Full name is not valid!<br>";
+        }
+        if(!validateEmail($email)){
+            $status = false;
+            $errorMessage .= "Email is not valid!<br>";
+        }
+        if(!validateUsername($username)){
+            $status = false;
+            $errorMessage .= "Username is not valid!<br>";
+        }
+        if(uniqueCustomerUsername($username)->num_rows > 0){
+            $status = false;
+            $errorMessage .= "Sorry, this username is already taken!<br>";
+        }
+        if(!checkPassword($password)){
+            $status = false;
+            $errorMessage .= "Password cannot be empty!<br>";
+        }
+        if(!validatePasswords($password, $confirmpassword)){
+            $status = false;
+            $errorMessage .= "Your passwords don't match!<br>";
+        }
+        if(!validatePhone($phone)){
+            $status = false;
+            $errorMessage .= "Phone is not valid!<br>";
+        }
+
+        if($status){
+            if(!createCustomer($name, $fullname, $username, $password, $email, $phone, $gender)){
+                $status = false;
+            }
+        }
+
+    }
+
+?>
 
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>REGISTRATION</title>
+    <title>CUSTOMER REGISTRATION</title>
 </head>
 
 <body>
@@ -28,48 +94,43 @@
 
             <td colspan="3" align="">
 
-                <form class="" action="4-handler.php">
+                <form method="post">
 
                     <fieldset>
 
-                        <legend>REGISTRATION</legend>
+                        <legend>CUSTOMER | REGISTRATION</legend>
 
-                        <p>Name <input type="text" name="name"></p>
+                        <div id="errors"></div>
+
+                        <p>Name <input type="text" name="name" id="name"></p>
                         <hr>
 
-                        <p>Email <input type="email" name="email"></p>
+                        <p>Full Name <input type="text" name="fullname" id="fullname"></p>
                         <hr>
 
-                        <p>User Name <input type="text" name="userName"></p>
+                        <p>Email <input type="email" name="email" id="email"></p>
                         <hr>
 
-                        <p>Password <input type="password" name="password"></p>
+                        <p>Phone <input type="tel" name="phone" id="phone"></p>
                         <hr>
 
-                        <p>Confirm Password <input type="password" name="confirmPassword"></p>
+                        <p>User Name <input type="text" name="username" id="username"> <i>e.g. cus-john</i></p>
+                        <hr>
+
+                        <p>Password <input type="password" name="password" id="password"></p>
+                        <hr>
+
+                        <p>Confirm Password <input type="password" name="confirmpassword" id="confirmpassword"></p>
                         <hr>
 
                         <fieldset>
 
                             <legend>Gender</legend>
-                            <input type="radio" name="gender" value="Male">Male
-                            <input type="radio" name="gender" value="Female">Female
-                            <input type="radio" name="gender" value="Other">Other
+                            <input type="radio" name="gender" value="Male" id="male">Male
+                            <input type="radio" name="gender" value="Female" id="female">Female
+                            <input type="radio" name="gender" value="Other" id="other">Other
 
                         </fieldset>
-
-                        <fieldset>
-
-                            <legend>Date of Birth</legend>
-                            <input type="text" name="day">/
-                            <input type="text" name="month">/
-                            <input type="text" name="year"> (dd/mm/yyyy)
-
-                        </fieldset>
-
-                        <p>
-                            <input type="checkbox" name="terms">By clicking Submit, you agree to our <a href="Terms.html">Terms & Conditions.</a>
-                        </p>
 
                         <hr>
 
@@ -98,6 +159,42 @@
         </tr>
 
     </table>
+
+    <script type="text/javascript">
+
+        var errorMessage = "<?=$errorMessage;?>";
+        var status = "<?=$status;?>";
+        if(status){
+            document.getElementById("errors").style.color = "green";
+            document.getElementById("errors").style.fontSize = 30+"px";
+            document.getElementById("errors").innerHTML = "Record Added!";
+        }
+        else{
+            document.getElementById("errors").style.color = "red";
+            document.getElementById("errors").style.fontSize = 20+"px";
+            document.getElementById("errors").innerHTML = errorMessage;
+
+            document.getElementById("name").value = "<?=$name;?>";
+            document.getElementById("fullname").value = "<?=$fullname;?>";
+            document.getElementById("email").value = "<?=$email;?>";
+            document.getElementById("phone").value = "<?=$phone;?>";
+            document.getElementById("username").value = "<?=$username;?>";
+
+            var gender = "<?=$gender;?>";
+            if(gender){
+                if(gender === "Male"){
+                    document.getElementById("male").checked = true;
+                }
+                else if(gender === "Female"){
+                    document.getElementById("female").checked = true;
+                }
+                else {
+                    document.getElementById("other").checked = true;
+                }
+            }
+        }
+
+    </script>
 
 </body>
 
