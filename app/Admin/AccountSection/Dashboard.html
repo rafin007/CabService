@@ -12,6 +12,13 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
+    //if(!isset($_COOKIE['customer'])){
+        //header("location: ../../Login.html");
+    //}
+    //else{
+        //$_SESSION['id'] = $_COOKIE['customer'];
+    //}
+
 
     $day = date('d');
     $month = date('m');
@@ -64,7 +71,6 @@
                     <li><a href="Dashboard.html">Dashboard</a></li>
                     <li><a href="Profile.html">View Profile</a></li>
                     <li><a href="EditProfile.html">Edit Profile</a></li>
-                    <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
                     <li><a href="ChangePassword.html">Change Password</a></li>
                     <li><a href="../../Home.html">Logout</a></li>
 
@@ -80,7 +86,6 @@
                     <li><a href="../AdminSection/ViewEmployees.html">View Employees</a></li>
                     <li><a href="../AdminSection/ViewFares.html">View all Fares</a></li>
                     <li><a href="../AdminSection/Insights.html">Insights</a></li>
-                    <li><a href="../AdminSection/ComplainBook.html">Complain Book</a></li>
 
                 </ul>
 
@@ -92,11 +97,7 @@
 
                 <table width="100%">
                     <tr valign="top">
-                        <td colspan="2">
 
-                            <h2>Here's a snippet of today's weather..</h2>
-
-                        </td>
                         <td>
 
                             <h2>Some Insights..</h2>

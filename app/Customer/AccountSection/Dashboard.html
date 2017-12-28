@@ -16,6 +16,8 @@
 
     $amount = getAmountByCustomerId($_SESSION['id']);
 
+    $pending = getCustomerRidePending($_SESSION['id']);
+
 ?>
 
 <html>
@@ -54,7 +56,6 @@
                     <li><a href="Dashboard.html">Dashboard</a></li>
                     <li><a href="Profile.html">View Profile</a></li>
                     <li><a href="EditProfile.html">Edit Profile</a></li>
-                    <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
                     <li><a href="ChangePassword.html">Change Password</a></li>
                     <li><a href="../../Home.html">Logout</a></li>
 
@@ -87,21 +88,17 @@
                     }
                     else{
 
-                        echo "<h3>You have booked ".$ride->num_rows." rides yet, click <a href='../CustomerSection/CancelRide.html'>here</a> to cancel!</h3>";
+                        echo "<h3>You have booked ".$ride->num_rows." rides yet, ".$pending->num_rows." are pending, click <a href='../CustomerSection/CancelRide.html'>here</a> to cancel!</h3>";
 
                     }
 
                 ?>
                 <table width="100%">
                     <tr>
-                        <td valign="top" colspan="2">
 
-                            <h2>Here's a snippet of today's weather..</h2>
-
-                        </td>
                         <td>
 
-                            <h2>Also checkout..</h2>
+                            <h2>Some Insights..</h2>
                             <ul>
 
                                 <li><h3>Total Completed Rides: <?=getRideByCustomerIdFull($_SESSION['id'])->num_rows;?></h3></li>

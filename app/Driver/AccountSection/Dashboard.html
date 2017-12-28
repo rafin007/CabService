@@ -1,4 +1,6 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
+<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
+
 
 <?php
 
@@ -9,6 +11,18 @@
     else{
         $employee = getEmployeeById($_SESSION['id']);
     }
+
+    $employees = getEmployeeById($_SESSION['id']);
+
+    $rides = getRideByEmployeeId($_SESSION['id']);
+
+    $currentDate = date('Y-m-d');
+    $joinDate = $employees['join_date'];
+
+    $seconds = strtotime($currentDate) - strtotime($joinDate);
+    $interval = floor($seconds / 86400);
+
+    $amount = getAmountByEmployeeId($_SESSION['id']);
 
 ?>
 <html>
@@ -47,7 +61,6 @@
                     <li><a href="Dashboard.html">Dashboard</a></li>
                     <li><a href="Profile.html">View Profile</a></li>
                     <li><a href="EditProfile.html">Edit Profile</a></li>
-                    <li><a href="ProfilePicture.html">Change Profile Picture</a></li>
                     <li><a href="ChangePassword.html">Change Password</a></li>
                     <li><a href="../../Home.html">Logout</a></li>
 
@@ -69,29 +82,19 @@
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="center">
+            <td colspan="2" width="70%" valign="middle" align="center">
 
                 <h1>Welcome <?=$employee['name'];?></h1>
 
                 <table width="100%">
                     <tr>
-                        <td valign="top" colspan="2">
 
-                            <h2>Here's a snippet of today's weather..</h2>
+                        <td align="center">
 
-                        </td>
-                        <td>
-
-                            <h2>Also checkout..</h2>
-                            <ul>
-
-                                <li><h3><a href="../DriverSection/AvailableFares.html">Available Fares</a></h3></li>
-                                <li><h3><a href="../DriverSection/MyRatings.html">My Ratings</a></h3></li>
-                                <li><h3><a href="../DriverSection/SalaryInfo.html">Salary Information</a></h3></li>
-                                <li><h3><a href="../../FlightTimes.html">Flight Times</a></h3></li>
-
-                            </ul>
-                            <h3>Have a complain? <a href="../DriverSection/Issue.html">Report here</a></h3>
+                            <h3>Member since: <?=$interval;?> days</h3>
+                            <h3>Total fares completed: <?=$rides->num_rows;?></h3>
+                            <h3>Total Earned: <?=floatval($amount['sum(fare)']);?></h3>
+                            <h3>Average Rating: <?=floatval($employees['rating']);?></h3>
 
                         </td>
                     </tr>
