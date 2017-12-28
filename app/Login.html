@@ -14,6 +14,10 @@
             if(checkCustomerLogin($username, $password)){
                 $customer = getCustomerByUsername($username);
                 $_SESSION['id'] = $customer['id'];
+                if(isset($_POST['remember'])){
+                    //setcookie("customer", $customer['id'], time() + (86400*30), '/');
+                    //var_dump($_COOKIE['customer']);
+                }
                 header("location: Customer/AccountSection/Dashboard.html");
             }
             else{
@@ -75,11 +79,10 @@
                         <legend>Login</legend>
                         <p>User Name: <input type="text" name="username" value=""placeholder="Your User Name Here"></p>
                         <p>Password: <input type="password" name="password" value="" placeholder="Your Password Here"></p>
-                        <p><input type="checkbox" name="remember" value="" >Remember me</p>
+                        <p><input type="checkbox" name="remember" value="check">Remember me</p>
+                        <hr>
                         <p><input type="submit" name="submit" value="Login"></p>
                         <div id="errors"></div>
-                        <hr>
-                        <p><a href="ForgotPassword.html">Forgot Password?</a></p>
                     </fieldset>
                 </form>
 
