@@ -69,4 +69,8 @@
         return uniqueCustomerUsernameDB($username);
     }
 
+    function getAllIssue(){
+        return getAllIssueDB();
+    }
+
 ?>

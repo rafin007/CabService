@@ -124,4 +124,11 @@
 		return $result;
 	}
 
+	function getAllIssueDB(){
+		$sql = "SELECT issue.*, customer.* FROM issue INNER JOIN customer ON issue.customer_id = customer.id";
+		$result = executeSQL($sql);
+		//$person = mysqli_fetch_assoc($result);
+		return $result;
+	}
+
 ?>
