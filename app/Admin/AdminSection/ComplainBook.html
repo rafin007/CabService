@@ -1,5 +1,4 @@
 <?php require_once (realpath(dirname(__FILE__)."/../../../core/employee_service.php")); ?>
-<?php require_once (realpath(dirname(__FILE__)."/../../../core/rides_service.php")); ?>
 
 <?php
 
@@ -11,34 +10,12 @@
         $employee = getEmployeeById($_SESSION['id']);
     }
 
-    $day = date('d');
-    $month = date('m');
-    $year = date('Y');
-
-    $currentDate = date('Y-m-d');
-
-    $sevenDays = $year."-".$month."-".($day-7);
-    $lastMonth = $year."-".($month-1)."-".$day;
-
-    $fareToday = getRideToday($currentDate);
-    $revenueToday = getRevenueToday($currentDate);
-
-    $fareSevenDays = getRideWeek($sevenDays, $currentDate);
-    $revenueSevenDays = getRevenueSevenDays($sevenDays, $currentDate);
-
-    $fareMonth = getRideMonth($lastMonth, $currentDate);
-    $revenueMonth = getRevenueMonth($lastMonth, $currentDate);
-
-    $mileageToday = getMileageToday($currentDate);
-    $mileageSevenDays = getMileageSevenDays($sevenDays, $currentDate);
-    $mileageMonth = getMileageMonth($lastMonth, $currentDate);
-
 ?>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>VIEW REVENUE</title>
+    <title>COMPLAIN BOOK</title>
 </head>
 
 <body>
@@ -70,6 +47,7 @@
                     <li><a href="../AccountSection/Dashboard.html">Dashboard</a></li>
                     <li><a href="../AccountSection/Profile.html">View Profile</a></li>
                     <li><a href="../AccountSection/EditProfile.html">Edit Profile</a></li>
+                    <li><a href="../AccountSection/ProfilePicture.html">Change Profile Picture</a></li>
                     <li><a href="../AccountSection/ChangePassword.html">Change Password</a></li>
                     <li><a href="../../Home.html">Logout</a></li>
 
@@ -85,30 +63,15 @@
                     <li><a href="../AdminSection/ViewEmployees.html">View Employees</a></li>
                     <li><a href="../AdminSection/ViewFares.html">View all Fares</a></li>
                     <li><a href="../AdminSection/Insights.html">Insights</a></li>
+                    <li><a href="../AdminSection/ComplainBook.html">Complain Book</a></li>
 
                 </ul>
 
             </td>
 
-            <td colspan="2" width="70%" valign="top" align="left">
+            <td colspan="2" width="70%" valign="top" align="center">
 
-                <fieldset>
-
-                    <legend>REVENUE</legend>
-
-                    <h4>Total Fares(Today): <?=$fareToday->num_rows;?></h4>
-                    <h4>Total Fares(Last 7 days): <?=$fareSevenDays->num_rows;?></h4>
-                    <h4>Total Fares(Last 30 days): <?=$fareMonth->num_rows;?></h4>
-                    <hr>
-                    <h4>Total Mileage(Today): <?=floatval($mileageToday['sum(distance)']);?> km</h4>
-                    <h4>Total Mileage(Last 7 days): <?=floatval($mileageSevenDays['sum(distance)']);?> km</h4>
-                    <h4>Total Mileage(Last 30 days): <?=floatval($mileageMonth['sum(distance)']);?> km</h4>
-                    <hr>
-                    <h4>Total Revenue(Today): <?=floatval($revenueToday['sum(fare)']);?> TK</h4>
-                    <h4>Total Revenue(Last 7 days): <?=floatval($revenueSevenDays['sum(fare)']);?> TK</h4>
-                    <h4>Total Revenue(Last 30 days): <?=floatval($revenueMonth['sum(fare)']);?> TK</h4>
-
-                </fieldset>
+                <h2>Showing issues reported from users..</h2>
 
             </td>
 
@@ -127,3 +90,5 @@
         </tr>
 
     </table>
+</body>
+</html>
